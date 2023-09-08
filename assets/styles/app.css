@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.mobile-menu-active{
+    transform: translateX(0);
+}
+
+.backdrop-active{
+    display: flex;
+}

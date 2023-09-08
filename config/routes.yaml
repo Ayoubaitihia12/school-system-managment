@@ -1,5 +1,81 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+
+# Test
+
+app_test:
+    path: /test
+    controller : App\Controller\TestController::index
+
+
+# Reset Password:
+
+app_forgot_password_request:
+    path: /reset-password
+    controller: App\Controller\ResetPasswordController::request
+
+app_check_email:
+    path: /check-email
+    controller: App\Controller\ResetPasswordController::checkEmail
+
+app_reset_password:
+    path: /reset/{token}
+    controller: App\Controller\ResetPasswordController::reset
+
+# register
+app_register:
+    path: /register
+    controller: App\Controller\SecurityController::register
+
+# app_verify_email:
+#     path: /verify/email
+#     controller: App\Controller\RegistrationController::verifyUserEmail
+
+# Login and logout
+app_login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+app_logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout
+
+# dashboard
+app_dashboard_index:
+    path: /
+    controller: App\Controller\DashboardController::index
+
+# students
+app_students_index:
+    path: /students
+    controller: App\Controller\StudentController::index
+
+app_students_add:
+    path: /students/add
+    controller: App\Controller\StudentController::add
+
+app_students_details:
+    path: /students/details
+    controller: App\Controller\StudentController::view
+
+# Teacher
+app_teacher_index:
+    path: /teachers
+    controller: App\Controller\TeacherController::index
+
+app_teacher_add:
+    path: /teachers/add
+    controller: App\Controller\TeacherController::add
+
+# Classe
+app_classe_index:
+    path: /classe
+    controller: App\Controller\ClasseController::index
+
+# Subject
+app_subject_index:
+    path: /subject
+    controller: App\Controller\SubjectController::index
+
+# Parent
+app_parent_index:
+    path: /parent
+    controller: App\Controller\ParentController::index
