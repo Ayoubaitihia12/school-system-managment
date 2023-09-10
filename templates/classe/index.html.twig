@@ -6,20 +6,8 @@
 
 {% block content %}
 
-<div class="w-full grid grid-cols-3 items-start gap-x-10">
+<div class="w-full">
     
-    <div class="bg-white p-4 rounded-md border">      
-        <div class="pb-2 border-b">
-            <h1 class="font-semibold">Create New Classe</h1>
-        </div>
-        <div class="py-4">
-            <div>
-                <label for="email" class="block mb-1.5 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                <input type="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Enter Classe Name" required>
-            </div>
-            <button type="submit" class="text-white mt-4 bg-primary-color hover:bg-primary-color focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 w-full py-2.5 dark:bg-primary-color dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-primary-color">Submit</button>
-        </div>
-    </div>
 
     <div class="bg-white p-4 rounded-md col-span-2 border">      
         <div class="pb-4 border-b">
@@ -59,7 +47,7 @@
                       <i class="fa-solid fa-download"></i>
                       Download
                     </a>
-                    <a href="#"
+                    <a href="{{ path('app_classe_add') }}"
                     class="text-white flex items-center gap-x-2 bg-primary-color hover:bg-primary-color px-4 py-2 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-primary-color dark:hover:bg-primary-color focus:outline-none dark:focus:ring-primary-color"
                     >
                       <i class="fa-solid fa-plus text-lg"></i>
@@ -79,19 +67,16 @@
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
-                    {% for i in 0..4 %}
+                    {% for classe in pagination %}
                     <tr class="text-gray-700 dark:text-gray-400">
                       <td class="px-4 py-3 text-sm">
-                        PRE2209
+                        {{ classe.code }}
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        A
+                        {{ classe.name }}
                       </td>
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-1 text-sm">
-                            <a href="#" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-accent-color">
-                                <i class="fa-solid fa-eye text-xs text-white"></i>
-                            </a>
                             <a href="#" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-primary-color">
                                 <i class="fa-solid fa-pencil text-xs text-white"></i>
                             </a>
@@ -200,6 +185,11 @@
                     </ul>
                   </nav>
                 </span>
+                
+                <div>
+                  {{ knp_pagination_render(pagination) }}
+                </div>
+
               </div>
             </div>
         </div>

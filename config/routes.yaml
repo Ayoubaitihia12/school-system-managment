@@ -70,6 +70,10 @@ app_classe_index:
     path: /classe
     controller: App\Controller\ClasseController::index
 
+app_classe_add:
+    path: /classe/add
+    controller: App\Controller\ClasseController::add
+
 # Subject
 app_subject_index:
     path: /subject
