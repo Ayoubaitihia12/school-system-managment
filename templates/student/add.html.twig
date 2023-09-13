@@ -2,47 +2,73 @@
 
 {% block title %}Students{% endblock %}
 
-{% block path %}Add Students{% endblock %}
+{% block path %}Add Student{% endblock %}
 
 {% block content %}
-
-<div class="bg-white rounded-xl w-full p-6">
+{{ form_start(form) }}
+<div class="bg-white rounded-xl w-full p-6 border shadow-sm">
     <h1 class="text-lg font-semibold">Student Information</h1>
     
     <div class="grid grid-cols-3 gap-6 py-4">
         <div>
-            <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">First Name <span class="text-red-500 text-lg">*</span></label>
-            <input type="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Enter First Name" required>
+            {{ form_label(form.FirstName,'First Name',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            {{ form_widget(form.FirstName,{'attr':{'class':'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light','placeholder':'Enter First Name'}}) }}
+            {{ form_errors(form.FirstName) }}
         </div>
         <div>
-            <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Last Name <span class="text-red-500 text-lg">*</span></label>
-            <input type="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Enter Last Name" required>
+            {{ form_label(form.LastName,'Last Name',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            {{ form_widget(form.LastName,{'attr':{'class':'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light','placeholder':'Enter Last Name'}}) }}
+            {{ form_errors(form.LastName) }}
         </div>
         <div>
-            <label for="countries" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Gender <span class="text-red-500 text-lg">*</span></label>
-            <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option selected>Select Gender</option>
-                <option value="US">Female</option>
-                <option value="CA">Male</option>
-                <option value="FR">Others</option>
-            </select>
+            {{ form_label(form.Gender,'Gender',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            {{ form_widget(form.Gender,{'attr':{'class':'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+            {{ form_errors(form.Gender) }}
         </div>
         <div>
-            <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Date Of Birth<span class="text-red-500 text-lg">*</span></label>
-            <input type="date" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Enter First Name" required>
+            {{ form_label(form.Email,'Email',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            {{ form_widget(form.Email,{'attr':{'class':'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500','placeholder':'Enter Email'}}) }}
+            {{ form_errors(form.Email) }}
         </div>
         <div>
-            <label for="email" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Roll<span class="text-red-500 text-lg">*</span></label>
-            <input type="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Enter Roll Number" required>
+            {{ form_label(form.Admission_id,'Admission ID',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            {{ form_widget(form.Admission_id,{'attr':{'class':'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500','placeholder':'Enter Admission ID'}}) }}
+            {{ form_errors(form.Admission_id) }}
         </div>
         <div>
-            <label for="countries" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Blood Group<span class="text-red-500 text-lg">*</span></label>
-            <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option selected>Please Select Group</option>
-                <option value="US">A +</option>
-                <option value="CA">B +</option>
-                <option value="FR">C +</option>
-            </select>
+            {{ form_label(form.Date_of_Birth,'Date Of Birth',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            {{ form_widget(form.Date_of_Birth,{'attr':{'class':'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'}}) }}
+            {{ form_errors(form.Date_of_Birth) }}
+        </div>
+        <div>
+            {{ form_label(form.Adress,'Adress',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            {{ form_widget(form.Adress,{'attr':{'class':'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500','placeholder':'Enter Adress'}}) }}
+            {{ form_errors(form.Adress) }}
+        </div>
+        <div>
+            {{ form_label(form.Phone,'Phone',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            {{ form_widget(form.Phone,{'attr':{'class':'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500','placeholder':'Enter Phone'}}) }}
+            {{ form_errors(form.Phone) }}
+        </div>
+        <div>
+            {{ form_label(form.Classe,'Classe',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            {{ form_widget(form.Classe,{'attr':{'class':'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+            {{ form_errors(form.Classe) }}        
+        </div>
+        <div>
+            {{ form_label(form.Password.first,'Password',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            {{ form_widget(form.Password.first,{'attr':{'class':'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+            {{ form_errors(form.Password.first) }}
+        </div>
+        <div>
+            {{ form_label(form.Password.second,'Repeat Password',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            {{ form_widget(form.Password.second,{'attr':{'class':'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+            {{ form_errors(form.Password.second) }}
+        </div>
+        <div>
+            {{ form_label(form.Nationality,'Nationality',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            {{ form_widget(form.Nationality,{'attr':{'class':'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+            {{ form_errors(form.Nationality) }}
         </div>
     </div>
 
@@ -59,8 +85,8 @@
         </div>
     </div>
 
-    <button type="submit" class="text-white mt-6 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
-
+    <button type="submit" class="text-white mt-6 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add New Student</button>
+    <a href="{{ path('app_students_index') }}" class="mt-6 bg-black text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 mr-2 mb-2">Back</a>
 </div>
-
+{{ form_end(form) }}
 {% endblock %}

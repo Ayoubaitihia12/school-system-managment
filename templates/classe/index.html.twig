@@ -77,10 +77,10 @@
                       </td>
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-1 text-sm">
-                            <a href="#" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-primary-color">
+                            <a href="{{ path('app_classe_update',{'id':classe.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-primary-color">
                                 <i class="fa-solid fa-pencil text-xs text-white"></i>
                             </a>
-                            <a href="#" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-light-red-color">
+                            <a href="{{ path('app_classe_delete',{'id':classe.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-light-red-color">
                                 <i class="fa-solid fa-trash text-xs text-white"></i>
                             </a>
                         </div>
@@ -186,9 +186,9 @@
                   </nav>
                 </span>
                 
-                <div>
+                {# <div>
                   {{ knp_pagination_render(pagination) }}
-                </div>
+                </div> #}
 
               </div>
             </div>

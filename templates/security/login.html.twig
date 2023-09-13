@@ -62,6 +62,9 @@
               >
                 Login
               </h1>
+              {% if error %}
+                <div class="w-full text-semibold text-center border-light-red-color border text-light-red-color bg-[#f9eaea] rounded-md mb-4 py-2">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+              {% endif %}
               <label class="block text-sm">
                 <span for="inputEmail" class="text-gray-700 dark:text-gray-400">Email</span>
                 <input

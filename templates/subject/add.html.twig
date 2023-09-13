@@ -1,0 +1,43 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Subjects{% endblock %}
+
+{% block path %}Add New Subject{% endblock %}
+
+{% block content %}
+{{ form_start(form) }}
+<div class="bg-white rounded-xl w-full max-w-[700px] mx-auto p-6 border shadow-md">
+    <h1 class="text-lg font-semibold">Subject Information</h1>
+
+    <div class="mt-4">
+        {{ form_label(form.Name,'Name',{'label_attr':{'class' : 'block mb-1.5 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+        {{ form_widget(form.Name,{'attr':{'class':'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'}}) }}
+        {{ form_errors(form.Name) }}
+    </div>
+
+    {# <div class="mt-4">
+        {{ form_label(form.Type,'Type',{'label_attr':{'class' : 'block mb-1.5 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+        {{ form_widget(form.Type,{'attr':{'class':'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'}}) }}
+        {{ form_errors(form.Type) }}
+    </div> #}
+
+    <div class="mt-4 space-y-6">
+        <div class="flex items-center gap-x-3">
+            {{ form_label(form.Type,'Type',{'label_attr':{'class' : 'block text-sm font-medium leading-6 text-gray-900'}}) }}
+            {{ form_widget(form.Type,{'attr':{'class':'h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600'}}) }}
+        </div>
+    </div>
+
+    <div class="sm:col-span-3 mt-4">
+        {# <label for="country" class="block text-sm font-medium leading-6 text-gray-900">Country</label> #}
+        {{ form_label(form.Class,'Classe',{'label_attr':{'class':'block text-sm font-medium leading-6 text-gray-900'}}) }}
+        <div class="mt-2">
+            {{ form_widget(form.Class,{'attr':{'class':'block p-2.5 w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6'}}) }}
+        </div>
+    </div>
+
+
+    <button type="submit" class="text-white mt-6 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit</button>
+</div>
+{{ form_end(form) }}
+{% endblock %}

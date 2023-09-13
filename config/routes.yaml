@@ -74,10 +74,30 @@ app_classe_add:
     path: /classe/add
     controller: App\Controller\ClasseController::add
 
+app_classe_update:
+    path: /classe/update/{id}
+    controller: App\Controller\ClasseController::update
+
+app_classe_delete:
+    path: /classe/delete/{id}
+    controller: App\Controller\ClasseController::delete
+
 # Subject
 app_subject_index:
     path: /subject
     controller: App\Controller\SubjectController::index
+
+app_subject_add:
+    path: /subject/add
+    controller: App\Controller\SubjectController::add
+
+app_subject_update:
+    path: /subject/update/{id}
+    controller: App\Controller\SubjectController::update
+
+app_subject_delete:
+    path: /subject/delete/{id}
+    controller: App\Controller\SubjectController::delete
 
 # Parent
 app_parent_index:

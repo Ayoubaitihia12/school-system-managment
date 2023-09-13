@@ -43,7 +43,7 @@
                       <i class="fa-solid fa-download"></i>
                       Download
                     </a>
-                    <a href="#"
+                    <a href="{{ path('app_subject_add') }}"
                     class="text-white flex items-center gap-x-2 bg-primary-color hover:bg-primary-color px-4 py-2 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-primary-color dark:hover:bg-primary-color focus:outline-none dark:focus:ring-primary-color"
                     >
                       <i class="fa-solid fa-plus text-lg"></i>
@@ -55,7 +55,6 @@
                     <tr
                       class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                     >
-                        <th class="px-4 py-3">ID</th>
                         <th class="px-4 py-3">Name</th>
                         <th class="px-4 py-3">Type</th>
                         <th class="px-4 py-3">Classe</th>
@@ -65,29 +64,26 @@
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
-                    {% for i in 0..4 %}
+                    {% for subject in pagination %}
                     <tr class="text-gray-700 dark:text-gray-400">
                       <td class="px-4 py-3 text-sm">
-                        PRE2209
+                        {{ subject.Name }}
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        Math
+                        {{ subject.type }}
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        Theorique
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        B	
+                        {{ subject.Class }}	
                       </td>
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-1 text-sm">
                             <a href="#" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-accent-color">
                                 <i class="fa-solid fa-eye text-xs text-white"></i>
                             </a>
-                            <a href="#" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-primary-color">
+                            <a href="{{ path('app_subject_update',{'id':subject.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-primary-color">
                                 <i class="fa-solid fa-pencil text-xs text-white"></i>
                             </a>
-                            <a href="#" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-light-red-color">
+                            <a href="{{ path('app_subject_delete',{'id':subject.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-light-red-color">
                                 <i class="fa-solid fa-trash text-xs text-white"></i>
                             </a>
                         </div>
