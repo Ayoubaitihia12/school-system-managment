@@ -52,6 +52,14 @@ app_students_add:
     path: /students/add
     controller: App\Controller\StudentController::add
 
+app_students_update:
+    path: /students/update/{id}
+    controller: App\Controller\StudentController::update
+
+app_students_delete:
+    path: /students/delete/{id}
+    controller: App\Controller\StudentController::delete
+
 app_students_details:
     path: /students/details
     controller: App\Controller\StudentController::view

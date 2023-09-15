@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: StudentRepository::class)]
 
@@ -16,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 * @UniqueEntity(fields={"Admission_id"})
 */
 
-class Student
+class Student implements PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -41,14 +42,6 @@ class Student
     #[ORM\Column(length: 255)]
     private ?string $Gender = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\Date]
-    private ?\DateTimeInterface $Date_of_Birth = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\Date]
-    private ?\DateTimeInterface $Admission_Date = null;
-
     #[ORM\Column(length: 255)]
     #[Assert\Length(
         min: 6,
@@ -67,6 +60,12 @@ class Student
 
     #[ORM\Column(length: 255)]
     private ?string $Password = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date_of_birth = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $admission_date = null;
 
     public function getId(): ?int
     {
@@ -133,30 +132,6 @@ class Student
         return $this;
     }
 
-    public function getDateOfBirth(): ?\DateTime
-    {
-        return $this->Date_of_Birth;
-    }
-
-    public function setDateOfBirth(\DateTime $Date_of_Birth): static
-    {
-        $this->Date_of_Birth = $Date_of_Birth;
-
-        return $this;
-    }
-
-    public function getAdmissionDate(): ?\DateTime
-    {
-        return $this->Admission_Date;
-    }
-
-    public function setAdmissionDate(\DateTime $Admission_Date): static
-    {
-        $this->Admission_Date = $Admission_Date;
-
-        return $this;
-    }
-
     public function getAdress(): ?string
     {
         return $this->Adress;
@@ -213,6 +188,30 @@ class Student
     public function setPassword(string $Password): static
     {
         $this->Password = $Password;
+
+        return $this;
+    }
+
+    public function getDateOfBirth(): ?\DateTimeInterface
+    {
+        return $this->date_of_birth;
+    }
+
+    public function setDateOfBirth(\DateTimeInterface $date_of_birth): static
+    {
+        $this->date_of_birth = $date_of_birth;
+
+        return $this;
+    }
+
+    public function getAdmissionDate(): ?\DateTimeInterface
+    {
+        return $this->admission_date;
+    }
+
+    public function setAdmissionDate(\DateTimeInterface $admission_date): static
+    {
+        $this->admission_date = $admission_date;
 
         return $this;
     }

@@ -12,11 +12,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class StudentType extends AbstractType
+class StudentTypeUpdateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -44,15 +42,7 @@ class StudentType extends AbstractType
             ->add('Phone',TelType::class)
             ->add('Classe')
             ->add('Nationality',CountryType::class)
-            ->add('Password',RepeatedType::class,[
-                'type' => PasswordType::class,
-                'constraints' => [
-                    new Length([
-                        'min' => 6,
-                    ]),
-                ]
-            ])
-        ;
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -43,7 +43,7 @@
                       <i class="fa-solid fa-download"></i>
                       Download
                     </a>
-                    <a href="#"
+                    <a href="{{ path('app_students_add') }}"
                     class="text-white flex items-center gap-x-2 bg-primary-color hover:bg-primary-color px-4 py-2 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-primary-color dark:hover:bg-primary-color focus:outline-none dark:focus:ring-primary-color"
                     >
                       <i class="fa-solid fa-plus text-lg"></i>
@@ -68,10 +68,10 @@
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
-                    {% for i in 0..4 %}
+                    {% for student in pagination %}
                     <tr class="text-gray-700 dark:text-gray-400">
                       <td class="px-4 py-3 text-sm">
-                        PRE2209
+                        {{student.id}}
                       </td>
                       <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
@@ -91,12 +91,12 @@
                             ></div>
                           </div>
                           <div>
-                            <p class="font-semibold">Wenzel Dashington</p>
+                            <p class="font-semibold">{{student.FirstName}} {{student.LastName}}</p>
                           </div>
                         </div>
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        9 B
+                        {{student.Classe}}
                       </td>
                       <td class="px-4 py-3 text-sm">
                         8 Dec 2003
@@ -105,20 +105,20 @@
                         Minnie J Shaffer	
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        701 753 3810	
+                        {{student.Phone}}
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        1900 Hidden Meadow Drive
+                        {{student.Adress}}
                       </td>
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-1 text-sm">
                             <a href="#" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-accent-color">
                                 <i class="fa-solid fa-eye text-xs text-white"></i>
                             </a>
-                            <a href="#" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-primary-color">
+                            <a href="{{ path('app_students_update',{'id':student.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-primary-color">
                                 <i class="fa-solid fa-pencil text-xs text-white"></i>
                             </a>
-                            <a href="#" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-light-red-color">
+                            <a href="{{ path('app_students_delete',{'id':student.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-light-red-color">
                                 <i class="fa-solid fa-trash text-xs text-white"></i>
                             </a>
                         </div>

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SubjectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SubjectRepository::class)]
@@ -22,6 +24,14 @@ class Subject
     #[ORM\ManyToOne(inversedBy: 'subjects')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Classe $Class = null;
+
+    #[ORM\OneToMany(mappedBy: 'Subject', targetEntity: Teacher::class)]
+    private Collection $teachers;
+
+    public function __construct()
+    {
+        $this->teachers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,6 +70,36 @@ class Subject
     public function setClass(?Classe $Class): static
     {
         $this->Class = $Class;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Teacher>
+     */
+    public function getTeachers(): Collection
+    {
+        return $this->teachers;
+    }
+
+    public function addTeacher(Teacher $teacher): static
+    {
+        if (!$this->teachers->contains($teacher)) {
+            $this->teachers->add($teacher);
+            $teacher->setSubject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeacher(Teacher $teacher): static
+    {
+        if ($this->teachers->removeElement($teacher)) {
+            // set the owning side to null (unless already changed)
+            if ($teacher->getSubject() === $this) {
+                $teacher->setSubject(null);
+            }
+        }
 
         return $this;
     }
