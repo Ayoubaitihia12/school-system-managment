@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\TeacherRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TeacherRepository::class)]
 class Teacher
@@ -38,7 +39,8 @@ class Teacher
     private ?Classe $class = null;
 
     #[ORM\Column]
-    private ?int $admissionId = null;
+    #[Assert\Length(exactly: 6)]
+    private ?String $admissionId = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $adress = null;
@@ -48,6 +50,9 @@ class Teacher
 
     #[ORM\Column(length: 255)]
     private ?string $password = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $gender = null;
 
     public function getId(): ?int
     {
@@ -138,12 +143,12 @@ class Teacher
         return $this;
     }
 
-    public function getAdmissionId(): ?int
+    public function getAdmissionId(): ?String
     {
         return $this->admissionId;
     }
 
-    public function setAdmissionId(int $admissionId): static
+    public function setAdmissionId(String $admissionId): static
     {
         $this->admissionId = $admissionId;
 
@@ -182,6 +187,18 @@ class Teacher
     public function setPassword(string $password): static
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): static
+    {
+        $this->gender = $gender;
 
         return $this;
     }

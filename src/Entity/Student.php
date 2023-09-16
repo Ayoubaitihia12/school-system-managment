@@ -34,9 +34,7 @@ class Student implements PasswordAuthenticatedUserInterface
     private ?string $Email = null;
 
     #[ORM\Column(unique:true)]
-    #[Assert\Length(
-        min: 6,
-    )]
+    #[Assert\Length(exactly: 6)]
     private ?String $Admission_id = null;
 
     #[ORM\Column(length: 255)]
@@ -66,6 +64,9 @@ class Student implements PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $admission_date = null;
+
+    #[ORM\ManyToOne(inversedBy: 'student')]
+    private ?Parents $parents = null;
 
     public function getId(): ?int
     {
@@ -212,6 +213,18 @@ class Student implements PasswordAuthenticatedUserInterface
     public function setAdmissionDate(\DateTimeInterface $admission_date): static
     {
         $this->admission_date = $admission_date;
+
+        return $this;
+    }
+
+    public function getParents(): ?Parents
+    {
+        return $this->parents;
+    }
+
+    public function setParents(?Parents $parents): static
+    {
+        $this->parents = $parents;
 
         return $this;
     }

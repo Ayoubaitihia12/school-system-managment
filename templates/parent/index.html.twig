@@ -43,7 +43,7 @@
                       <i class="fa-solid fa-download"></i>
                       Download
                     </a>
-                    <a href="#"
+                    <a href="{{ path('app_parent_add') }}"
                     class="text-white flex items-center gap-x-2 bg-primary-color hover:bg-primary-color px-4 py-2 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-primary-color dark:hover:bg-primary-color focus:outline-none dark:focus:ring-primary-color"
                     >
                       <i class="fa-solid fa-plus text-lg"></i>
@@ -55,8 +55,7 @@
                     <tr
                       class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                     >
-                        <th class="px-4 py-3">ID</th>
-                        <th class="px-4 py-3">Name</th>
+                        <th class="px-4 py-3"></th>
                         <th class="px-4 py-3">Gender</th>
                         <th class="px-4 py-3">Occupation</th>
                         <th class="px-4 py-3">Adresse</th>
@@ -69,60 +68,42 @@
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
-                    {% for i in 0..4 %}
+                    {% for parent in pagination %}
                     <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3 text-sm">
-                        PRE2209
-                      </td>
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                          <!-- Avatar with inset shadow -->
-                          <div
-                            class="relative w-8 h-8 mr-3 rounded-full md:block"
-                          >
-                            <img
-                              class="object-cover w-full h-full rounded-full"
-                              src="https://images.unsplash.com/photo-1546456073-6712f79251bb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                              alt=""
-                              loading="lazy"
-                            />
-                            <div
-                              class="absolute inset-0 rounded-full shadow-inner"
-                              aria-hidden="true"
-                            ></div>
-                          </div>
-                          <div>
-                            <p class="font-semibold">Wenzel Dashington</p>
-                          </div>
-                        </div>
+                      <td class="px-4 py-3text-sm">
+                          {{parent.firstName}} {{parent.lastName}}
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        Male
+                        {{parent.gender}}
                       </td>
                        <td class="px-4 py-3 text-sm">
-                        Banker
+                        {{parent.occupation}}
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        8 Dec 2003
+                        {{parent.adress}}
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        thomas@gmail.com
+                        {{parent.phone}}
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        701 753 3810	
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        1900 Hidden Meadow Drive
+                        {{parent.email}}
                       </td> 
+                      <td class="px-4 py-3 text-sm">
+                        <ul>
+                        {% for item in parent.student %}
+                          <li>{{ item }}<li>
+                        {% endfor %}
+                        </ul>
+                      </td>
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-1 text-sm">
                             <a href="#" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-accent-color">
                                 <i class="fa-solid fa-eye text-xs text-white"></i>
                             </a>
-                            <a href="#" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-primary-color">
+                            <a href="{{ path('app_parent_update',{'id':parent.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-primary-color">
                                 <i class="fa-solid fa-pencil text-xs text-white"></i>
                             </a>
-                            <a href="#" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-light-red-color">
+                            <a href="{{ path('app_parent_delete',{'id':parent.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-light-red-color">
                                 <i class="fa-solid fa-trash text-xs text-white"></i>
                             </a>
                         </div>

@@ -73,6 +73,14 @@ app_teacher_add:
     path: /teachers/add
     controller: App\Controller\TeacherController::add
 
+app_teacher_update:
+    path: /teachers/update/{id}
+    controller: App\Controller\TeacherController::update
+
+app_teacher_delete:
+    path: /teachers/delete/{id}
+    controller: App\Controller\TeacherController::delete
+
 # Classe
 app_classe_index:
     path: /classe
@@ -108,6 +116,19 @@ app_subject_delete:
     controller: App\Controller\SubjectController::delete
 
 # Parent
+
 app_parent_index:
     path: /parent
     controller: App\Controller\ParentController::index
+
+app_parent_add:
+    path: /parent/add
+    controller: App\Controller\ParentController::add
+
+app_parent_update:
+    path: /parent/update/{id}
+    controller: App\Controller\ParentController::update
+
+app_parent_delete:
+    path: /parent/delete/{id}
+    controller: App\Controller\ParentController::delete

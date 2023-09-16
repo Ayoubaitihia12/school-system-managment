@@ -24,13 +24,7 @@ class StudentType extends AbstractType
             ->add('FirstName')
             ->add('LastName')
             ->add('Email')
-            ->add('Admission_id',TextType::class,[
-                'constraints' => [
-                    new Length([
-                        'min' => 6,
-                    ]),
-                ]
-            ])
+            ->add('Admission_id')
             ->add('Gender',ChoiceType::class,[
                 'choices'  => [
                     'Male' => 'Male',
@@ -43,6 +37,7 @@ class StudentType extends AbstractType
             ->add('Adress',TextareaType::class)
             ->add('Phone',TelType::class)
             ->add('Classe')
+            ->add('parents')
             ->add('Nationality',CountryType::class)
             ->add('Password',RepeatedType::class,[
                 'type' => PasswordType::class,
