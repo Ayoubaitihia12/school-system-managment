@@ -29,17 +29,17 @@ class Classe
     #[ORM\OneToMany(mappedBy: 'Class', targetEntity: Subject::class)]
     private Collection $subjects;
 
-    #[ORM\OneToMany(mappedBy: 'Classe', targetEntity: Student::class)]
-    private Collection $students;
-
     #[ORM\OneToMany(mappedBy: 'class', targetEntity: Teacher::class)]
     private Collection $teachers;
+
+    #[ORM\OneToMany(mappedBy: 'class', targetEntity: ClassStudent::class)]
+    private Collection $classStudents;
 
     public function __construct()
     {
         $this->subjects = new ArrayCollection();
-        $this->students = new ArrayCollection();
         $this->teachers = new ArrayCollection();
+        $this->classStudents = new ArrayCollection();
     }
 
 
@@ -107,36 +107,6 @@ class Classe
     }
 
     /**
-     * @return Collection<int, Student>
-     */
-    public function getStudents(): Collection
-    {
-        return $this->students;
-    }
-
-    public function addStudent(Student $student): static
-    {
-        if (!$this->students->contains($student)) {
-            $this->students->add($student);
-            $student->setClasse($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStudent(Student $student): static
-    {
-        if ($this->students->removeElement($student)) {
-            // set the owning side to null (unless already changed)
-            if ($student->getClasse() === $this) {
-                $student->setClasse(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Teacher>
      */
     public function getTeachers(): Collection
@@ -160,6 +130,36 @@ class Classe
             // set the owning side to null (unless already changed)
             if ($teacher->getClass() === $this) {
                 $teacher->setClass(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ClassStudent>
+     */
+    public function getClassStudents(): Collection
+    {
+        return $this->classStudents;
+    }
+
+    public function addClassStudent(ClassStudent $classStudent): static
+    {
+        if (!$this->classStudents->contains($classStudent)) {
+            $this->classStudents->add($classStudent);
+            $classStudent->setClass($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClassStudent(ClassStudent $classStudent): static
+    {
+        if ($this->classStudents->removeElement($classStudent)) {
+            // set the owning side to null (unless already changed)
+            if ($classStudent->getClass() === $this) {
+                $classStudent->setClass(null);
             }
         }
 

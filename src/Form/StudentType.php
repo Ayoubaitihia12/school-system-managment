@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class StudentType extends AbstractType
 {
@@ -24,7 +25,7 @@ class StudentType extends AbstractType
             ->add('FirstName')
             ->add('LastName')
             ->add('Email')
-            ->add('Admission_id')
+            ->add('admission')
             ->add('Gender',ChoiceType::class,[
                 'choices'  => [
                     'Male' => 'Male',
@@ -36,8 +37,6 @@ class StudentType extends AbstractType
             ])
             ->add('Adress',TextareaType::class)
             ->add('Phone',TelType::class)
-            ->add('Classe')
-            ->add('parents')
             ->add('Nationality',CountryType::class)
             ->add('Password',RepeatedType::class,[
                 'type' => PasswordType::class,
@@ -47,6 +46,7 @@ class StudentType extends AbstractType
                     ]),
                 ]
             ])
+            ->add("file",FileType::class,array("label"=>"User image","required"=>false));
         ;
     }
 

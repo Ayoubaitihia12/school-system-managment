@@ -1,41 +1,29 @@
 {% extends 'template.html.twig' %}
 
-{% block title %}Parents{% endblock %}
+{% block title %}Classes{% endblock %}
 
-{% block path %}Parents{% endblock %}
+{% block path %}Class {{classe.name}}{% endblock %}
 
 {% block content %}
 
-<div class="flex items-center justify-between space-x-5 mb-6">
-
-<input
-    class="block rounded-lg border-[1.5px] py-3 rounded- px-3 w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-primary-color focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-    placeholder="Search By ID..."
-/>
-
-<input
-    class="block rounded-lg border-[1.5px] py-3 px-3 w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-primary-color focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-    placeholder="Search By Name..."
-/>
-
-<input
-    class="block rounded-lg border-[1.5px] py-3 px-3 w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-primary-color focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-    placeholder="Search By Student Name..."
-/>
-
-<button
-    class="text-white bg-primary-color hover:bg-primary-color px-10 py-3 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-primary-color dark:hover:bg-primary-color focus:outline-none dark:focus:ring-primary-color"
->
-    Search
-</button>
-
+<div class="w-full grid grid-cols-3 items-end gap-x-8 overflow-hidden p-4 bg-white mb-6 rounded-lg border-[1.5px] shadow-xs">
+  <div class="col-span-2">
+    <div class="mt-4">
+      {{ form_label(form.student,'Student',{'label_attr':{'class' : 'block mb-1.5 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+      {{ form_widget(form.student,{'attr':{'class':'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'}}) }}
+      {{ form_errors(form.student) }}
+    </div>
+  </div>
+    <button type="submit" class="text-white items-center text-center bg-primary-color hover:bg-primary-color px-6 py-3 font-medium rounded-lg text-sm"
+    >
+    Add New Student
+    </button>
 </div>
 
-
-            <div class="max-w-full overflow-hidden rounded-lg border-[1.5px] shadow-xs">
+<div class="max-w-full overflow-hidden rounded-lg border-[1.5px] shadow-xs">
               <div class="max-w-full overflow-x-auto">
                 <div class="w-full flex items-center justify-between px-4 py-5 bg-white">
-                  <h3 class="text-xl font-semibold">Parents</h3>
+                  <h3 class="text-xl font-semibold">Students</h3>
                   <div class="flex items-center space-x-3">
                     <a href="#"
                     class="text-white flex items-center gap-x-2 bg-primary-color hover:bg-primary-color px-6 py-3 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-primary-color dark:hover:bg-primary-color focus:outline-none dark:focus:ring-primary-color"
@@ -43,11 +31,7 @@
                       <i class="fa-solid fa-download"></i>
                       Download
                     </a>
-                    <a href="{{ path('app_parent_add') }}"
-                    class="text-white flex items-center gap-x-2 bg-primary-color hover:bg-primary-color px-4 py-2 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-primary-color dark:hover:bg-primary-color focus:outline-none dark:focus:ring-primary-color"
-                    >
-                      <i class="fa-solid fa-plus text-lg"></i>
-                    </a>
+                    
                   </div>
                 </div>
                 <table class="w-full divide-y">
@@ -55,51 +39,63 @@
                     <tr
                       class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                     >
-                        <th class="px-4 py-3">Full Name</th>
-                        <th class="px-4 py-3">Gender</th>
-                        <th class="px-4 py-3">Occupation</th>
+                        <th class="px-4 py-3">ID</th>
+                        <th class="px-4 py-3">Name</th>
+                        <th class="px-4 py-3">DOB</th>
+                        <th class="px-4 py-3">Mobile Number</th>
                         <th class="px-4 py-3">Adresse</th>
-                        <th class="px-4 py-3">Mobile Nb</th>
-                        <th class="px-4 py-3">Email</th>
                         <th class="px-4 py-3">Actions</th>
                     </tr>
                   </thead>
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
-                    {% for parent in pagination %}
+                    {% for student in pagination %}
                     <tr class="text-gray-700 dark:text-gray-400">
                       <td class="px-4 py-3 text-sm">
-                          {{parent.firstName|capitalize }} {{parent.lastName}}
+                        {{student.admission}}
+                      </td>
+                      <td class="px-4 py-3">
+                        <div class="flex items-center text-sm">
+                          <!-- Avatar with inset shadow -->
+                          <div
+                            class="relative w-8 h-8 mr-3 rounded-full md:block"
+                          >
+                            <img
+                              class="object-cover w-full h-full rounded-full"
+                              src="{{ asset(student.image.path) }}"
+                              alt=""
+                              loading="lazy"
+                            />
+                            <div
+                              class="absolute inset-0 rounded-full shadow-inner"
+                              aria-hidden="true"
+                            ></div>
+                          </div>
+                          <div>
+                            <p class="font-semibold">{{student.FirstName}} {{student.LastName}}</p>
+                          </div>
+                        </div>
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        {{parent.gender }}
-                      </td>
-                       <td class="px-4 py-3 text-sm">
-                        {{parent.occupation|capitalize }}
+                        8 Dec 2003
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        {{parent.adress }}
+                        {{student.Phone}}
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        {{parent.phone }}
+                        {{student.Adress}}
                       </td>
-                      <td class="px-4 py-3 text-sm">
-                        {{parent.email}}
-                      </td> 
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-1 text-sm">
                             <a href="#" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-accent-color">
                                 <i class="fa-solid fa-eye text-xs text-white"></i>
                             </a>
-                            <a href="{{ path('app_parent_update',{'id':parent.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-primary-color">
+                            <a href="{{ path('app_students_update',{'id':student.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-primary-color">
                                 <i class="fa-solid fa-pencil text-xs text-white"></i>
                             </a>
-                            <a href="{{ path('app_parent_delete',{'id':parent.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-light-red-color">
+                            <a href="{{ path('app_students_delete',{'id':student.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-light-red-color">
                                 <i class="fa-solid fa-trash text-xs text-white"></i>
-                            </a>
-                            <a href="#" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-light-green-color">
-                                <i class="fa-solid fa-list text-xs text-white"></i>
                             </a>
                         </div>
                       </td>
@@ -205,5 +201,5 @@
                 </span>
               </div>
             </div>
-{% endblock %}
 
+{% endblock %}

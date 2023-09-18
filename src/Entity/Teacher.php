@@ -54,6 +54,17 @@ class Teacher
     #[ORM\Column(length: 255)]
     private ?string $gender = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Media $image = null;
+
+    #[Assert\File(
+        maxSize: '4024k',
+        mimeTypes: ['image/png', 'image/jpeg']
+    )]
+
+    protected $file;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -200,6 +211,37 @@ class Teacher
     {
         $this->gender = $gender;
 
+        return $this;
+    }
+
+    public function getImage(): ?Media
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Media $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+          /**
+    * Get file
+    * @return  
+    */
+    public function getFile()
+    {
+        return $this->file;
+    }
+    
+    /**
+    * Set file
+    * @return $this
+    */
+    public function setFile($file)
+    {
+        $this->file = $file;
         return $this;
     }
 }

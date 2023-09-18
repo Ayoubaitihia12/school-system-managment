@@ -10,6 +10,7 @@ use App\Entity\Teacher;
 use App\Form\TeacherType;
 use App\Form\TeacherUpdateType;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Entity\Media;
 
 class TeacherController extends AbstractController
 {
@@ -39,6 +40,45 @@ class TeacherController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+
+            // Create new Media:
+            $media = new Media();
+
+
+            if($teacher->getFile()){
+
+                $media->setFile($teacher->getFile());
+
+                $media->upload($this->getParameter('files_directory'));   
+
+                $em->persist($media);
+                $em->flush();
+
+            }else{
+                
+                $file_name = md5(uniqid());
+                $file_name =  $file_name.".jpeg";
+                
+                if (!file_exists($this->getParameter('files_directory')."jpg/")) {
+                    mkdir($this->getParameter('files_directory')."jpg/");
+                }
+                
+                copy($this->getParameter('files_directory')."/../img/defaultProfile.jpg", $this->getParameter('files_directory')."jpg/".$file_name);
+
+                sleep(1);
+
+                $media->setTitle("defaultProfile.jpg");                  
+                $media->setName($file_name);                    
+                $media->setUrl($file_name);                    
+                $media->setType("image/jpg");                
+                $media->setExtension("jpg");                  
+                
+                $em->persist($media);
+                $em->flush();
+            }
+            
+
+            $teacher->setImage($media);
             
             $today = new \DateTime();
             $teacher->setJoiningDate($today);
@@ -62,6 +102,30 @@ class TeacherController extends AbstractController
 
         if($update_form->isSubmitted() && $update_form->isValid()){
             
+            if($teacher->getFile()){
+
+                $media = new Media();
+                $oldmedia = $teacher->getImage();
+
+                $media->setFile($teacher->getFile());
+
+                $media->upload($this->getParameter('files_directory'));
+
+                $em->persist($media);
+                $em->flush();
+
+                $teacher->setImage($media);
+                $em->flush();
+
+                if($oldmedia){
+
+                    $oldmedia->delete($this->getParameter('files_directory'));
+                    
+                    $em->remove($oldmedia);
+                    $em->flush();  
+                }
+   
+            } 
             $today = new \DateTime();
             $teacher->setJoiningDate($today);
 
@@ -78,8 +142,17 @@ class TeacherController extends AbstractController
 
     public function delete(EntityManagerInterface $em , Teacher $teacher)
     {
+        $media = $teacher->getImage();
+
         $em->remove($teacher);
         $em->flush();
+
+        if($media){
+            $media->delete($this->getParameter('files_directory'));
+
+            $em->remove($media);
+            $em->flush();
+        }
 
         return $this->redirectToRoute('app_teacher_index');
     }

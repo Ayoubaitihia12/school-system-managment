@@ -31,9 +31,9 @@
             {{ form_errors(form.Email) }}
         </div>
         <div>
-            {{ form_label(form.Admission_id,'Admission ID',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-            {{ form_widget(form.Admission_id,{'attr':{'class':'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500','placeholder':'Enter Admission ID'}}) }}
-            {{ form_errors(form.Admission_id) }}
+            {{ form_label(form.admission,'Admission ID',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            {{ form_widget(form.admission,{'attr':{'class':'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500','placeholder':'Enter Admission ID'}}) }}
+            {{ form_errors(form.admission) }}
         </div>
         <div>
             {{ form_label(form.date_of_birth,'Date Of Birth',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
@@ -51,32 +51,21 @@
             {{ form_errors(form.Phone) }}
         </div>
         <div>
-            {{ form_label(form.Classe,'Classe',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-            {{ form_widget(form.Classe,{'attr':{'class':'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
-            {{ form_errors(form.Classe) }}        
-        </div>
-        <div>
             {{ form_label(form.Nationality,'Nationality',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
             {{ form_widget(form.Nationality,{'attr':{'class':'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
             {{ form_errors(form.Nationality) }}
-        </div>
-        <div>
-            {{ form_label(form.parents,'Parent',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-            {{ form_widget(form.parents,{'attr':{'class':'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
-            {{ form_errors(form.parents) }}
         </div>
     </div>
 
     <div class="mt-8">
         <div class="flex flex-col items-start gap-y-1">
-            <span class="mb-2 font-semibold">Upload Student Photo </span>
-            <input type="file" class="block w-full text-sm text-gray-500
+            {{ form_label(form.file,'Upload Student Photo',{'label_attr':{'class':'"mb-2 font-semibold'}}) }}
+            {{form_widget(form.file,{'attr':{'class':'"block w-full text-sm text-gray-500
             file:mr-4 file:py-2 file:px-4
             file:rounded-md file:border-0
             file:text-sm file:font-semibold
             file:bg-black/90 file:text-white
-            hover:file:bg-black/80
-            "/>
+            hover:file:bg-black/80'}})}}
         </div>
     </div>
 

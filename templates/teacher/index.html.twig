@@ -50,7 +50,7 @@
                     </a>
                   </div>
                 </div>
-                <table class="max-w-full divide-y">
+                <table class="w-full divide-y">
                   <thead>
                     <tr
                       class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
@@ -81,8 +81,8 @@
                           >
                             <img
                               class="object-cover w-full h-full rounded-full"
-                              src="https://images.unsplash.com/photo-1546456073-6712f79251bb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                              alt=""
+                              src="{{ asset(teacher.image.path) }}"
+                              alt="{{teacher.firstName}}"
                               loading="lazy"
                             />
                             <div

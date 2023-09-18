@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class StudentTypeUpdateType extends AbstractType
 {
@@ -22,7 +23,7 @@ class StudentTypeUpdateType extends AbstractType
             ->add('FirstName')
             ->add('LastName')
             ->add('Email')
-            ->add('Admission_id')
+            ->add('admission')
             ->add('Gender',ChoiceType::class,[
                 'choices'  => [
                     'Male' => 'Male',
@@ -34,9 +35,8 @@ class StudentTypeUpdateType extends AbstractType
             ])
             ->add('Adress',TextareaType::class)
             ->add('Phone',TelType::class)
-            ->add('Classe')
-            ->add('parents')
             ->add('Nationality',CountryType::class)
+            ->add("file",FileType::class,array("label"=>"User image","required"=>false));
             ;
     }
 

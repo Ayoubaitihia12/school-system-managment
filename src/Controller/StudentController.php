@@ -11,6 +11,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Form\StudentType;
 use App\Entity\Student;
 use App\Form\StudentTypeUpdateType;
+use App\Entity\Media;
 
 class StudentController extends AbstractController
 {
@@ -51,6 +52,45 @@ class StudentController extends AbstractController
             $today = new \DateTime();
             $student->setAdmissionDate($today);
 
+            // Create new Media:
+            $media = new Media();
+
+
+            if($student->getFile()){
+
+                $media->setFile($student->getFile());
+
+                $media->upload($this->getParameter('files_directory'));   
+
+                $em->persist($media);
+                $em->flush();
+
+            }else{
+                
+                $file_name = md5(uniqid());
+                $file_name =  $file_name.".jpeg";
+                
+                if (!file_exists($this->getParameter('files_directory')."jpg/")) {
+                    mkdir($this->getParameter('files_directory')."jpg/");
+                }
+                
+                copy($this->getParameter('files_directory')."/../img/defaultProfile.jpg", $this->getParameter('files_directory')."jpg/".$file_name);
+
+                sleep(1);
+
+                $media->setTitle("defaultProfile.jpg");                  
+                $media->setName($file_name);                    
+                $media->setUrl($file_name);                    
+                $media->setType("image/jpg");                
+                $media->setExtension("jpg");                  
+                
+                $em->persist($media);
+                $em->flush();
+            }
+            
+
+            $student->setImage($media);
+
             $em->persist($student);
             $em->flush();
 
@@ -68,6 +108,31 @@ class StudentController extends AbstractController
         $Updateform->handleRequest($request);
 
         if($Updateform->isSubmitted() && $Updateform->isValid()){
+
+            if($student->getFile()){
+
+                $media = new Media();
+                $oldmedia = $student->getImage();
+
+                $media->setFile($student->getFile());
+
+                $media->upload($this->getParameter('files_directory'));
+
+                $em->persist($media);
+                $em->flush();
+
+                $student->setImage($media);
+                $em->flush();
+
+                if($oldmedia){
+
+                    $oldmedia->delete($this->getParameter('files_directory'));
+                    
+                    $em->remove($oldmedia);
+                    $em->flush();  
+                }
+   
+            }   
             
             $em->persist($student);
             $em->flush();
@@ -82,8 +147,17 @@ class StudentController extends AbstractController
 
     public function delete(EntityManagerInterface $em , Student $student)
     {
+        $media = $student->getImage();
+
         $em->remove($student);
         $em->flush();
+
+        if($media){
+            $media->delete($this->getParameter('files_directory'));
+
+            $em->remove($media);
+            $em->flush();
+        }
 
         return $this->redirectToRoute('app_students_index');
     }

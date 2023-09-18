@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StudentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -33,9 +35,6 @@ class Student implements PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255,unique:true)]
     private ?string $Email = null;
 
-    #[ORM\Column(unique:true)]
-    #[Assert\Length(exactly: 6)]
-    private ?String $Admission_id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $Gender = null;
@@ -48,10 +47,6 @@ class Student implements PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?int $Phone = null;
-
-    #[ORM\ManyToOne(inversedBy: 'students')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Classe $Classe = null;
 
     #[ORM\Column(length: 255)]
     private ?string $Nationality = null;
@@ -67,6 +62,29 @@ class Student implements PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToOne(inversedBy: 'student')]
     private ?Parents $parents = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Media $image = null;
+
+    #[Assert\File(
+        maxSize: '4024k',
+        mimeTypes: ['image/png', 'image/jpeg']
+    )]
+
+    protected $file;
+
+    #[ORM\Column(length: 255 , unique:true)]
+    #[Assert\Length(exactly: 6)]
+    private ?string $admission = null;
+
+    #[ORM\OneToMany(mappedBy: 'student', targetEntity: ClassStudent::class)]
+    private Collection $classStudents;
+
+    public function __construct()
+    {
+        $this->classStudents = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -109,17 +127,6 @@ class Student implements PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAdmissionId(): ?String
-    {
-        return $this->Admission_id;
-    }
-
-    public function setAdmissionId(String $Admission_id): static
-    {
-        $this->Admission_id = $Admission_id;
-
-        return $this;
-    }
 
     public function getGender(): ?string
     {
@@ -153,18 +160,6 @@ class Student implements PasswordAuthenticatedUserInterface
     public function setPhone(int $Phone): static
     {
         $this->Phone = $Phone;
-
-        return $this;
-    }
-
-    public function getClasse(): ?Classe
-    {
-        return $this->Classe;
-    }
-
-    public function setClasse(?Classe $Classe): static
-    {
-        $this->Classe = $Classe;
 
         return $this;
     }
@@ -225,6 +220,83 @@ class Student implements PasswordAuthenticatedUserInterface
     public function setParents(?Parents $parents): static
     {
         $this->parents = $parents;
+
+        return $this;
+    }
+
+    public function getImage(): ?Media
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Media $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+         /**
+    * Get file
+    * @return  
+    */
+    public function getFile()
+    {
+        return $this->file;
+    }
+    
+    /**
+    * Set file
+    * @return $this
+    */
+    public function setFile($file)
+    {
+        $this->file = $file;
+        return $this;
+    }
+
+    public function getAdmission(): ?string
+    {
+        return $this->admission;
+    }
+
+    public function setAdmission(string $admission): static
+    {
+        $this->admission = $admission;
+
+        return $this;
+    }
+
+    public function __toString(){
+        return $this->getAdmission().' - '.$this->FirstName . ' ' . $this->LastName;
+    }
+
+    /**
+     * @return Collection<int, ClassStudent>
+     */
+    public function getClassStudents(): Collection
+    {
+        return $this->classStudents;
+    }
+
+    public function addClassStudent(ClassStudent $classStudent): static
+    {
+        if (!$this->classStudents->contains($classStudent)) {
+            $this->classStudents->add($classStudent);
+            $classStudent->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClassStudent(ClassStudent $classStudent): static
+    {
+        if ($this->classStudents->removeElement($classStudent)) {
+            // set the owning side to null (unless already changed)
+            if ($classStudent->getStudent() === $this) {
+                $classStudent->setStudent(null);
+            }
+        }
 
         return $this;
     }

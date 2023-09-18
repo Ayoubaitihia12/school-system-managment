@@ -98,6 +98,10 @@ app_classe_delete:
     path: /classe/delete/{id}
     controller: App\Controller\ClasseController::delete
 
+app_classe_students:
+    path: /classe/students/{id}
+    controller: App\Controller\ClasseController::students
+
 # Subject
 app_subject_index:
     path: /subject

@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class TeacherUpdateType extends AbstractType
 {
@@ -33,6 +34,7 @@ class TeacherUpdateType extends AbstractType
         ->add('phone',TelType::class)
         ->add('Subject')
         ->add('class')
+        ->add("file",FileType::class,array("label"=>"User image","required"=>false));
         ;
     }
 

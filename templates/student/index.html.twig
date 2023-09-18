@@ -57,9 +57,7 @@
                     >
                         <th class="px-4 py-3">ID</th>
                         <th class="px-4 py-3">Name</th>
-                        <th class="px-4 py-3">Class</th>
                         <th class="px-4 py-3">DOB</th>
-                        <th class="px-4 py-3">Parent Name</th>
                         <th class="px-4 py-3">Mobile Number</th>
                         <th class="px-4 py-3">Adresse</th>
                         <th class="px-4 py-3">Actions</th>
@@ -71,7 +69,7 @@
                     {% for student in pagination %}
                     <tr class="text-gray-700 dark:text-gray-400">
                       <td class="px-4 py-3 text-sm">
-                        {{student.id}}
+                        {{student.admission}}
                       </td>
                       <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
@@ -81,7 +79,7 @@
                           >
                             <img
                               class="object-cover w-full h-full rounded-full"
-                              src="https://images.unsplash.com/photo-1546456073-6712f79251bb?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                              src="{{ asset(student.image.path) }}"
                               alt=""
                               loading="lazy"
                             />
@@ -96,13 +94,7 @@
                         </div>
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        {{student.Classe}}
-                      </td>
-                      <td class="px-4 py-3 text-sm">
                         8 Dec 2003
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        Minnie J Shaffer	
                       </td>
                       <td class="px-4 py-3 text-sm">
                         {{student.Phone}}
