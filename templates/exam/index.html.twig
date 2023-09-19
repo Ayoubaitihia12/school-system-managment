@@ -1,8 +1,8 @@
 {% extends 'template.html.twig' %}
 
-{% block title %}Students{% endblock %}
+{% block title %}Exams{% endblock %}
 
-{% block path %}Students{% endblock %}
+{% block path %}Exams{% endblock %}
 
 {% block content %}
 
@@ -35,7 +35,7 @@
             <div class="max-w-full overflow-hidden rounded-lg border-[1.5px] shadow-xs">
               <div class="max-w-full overflow-x-auto">
                 <div class="w-full flex items-center justify-between px-4 py-5 bg-white">
-                  <h3 class="text-xl font-semibold">Students</h3>
+                  <h3 class="text-xl font-semibold">Exams</h3>
                   <div class="flex items-center space-x-3">
                     <a href="#"
                     class="text-white flex items-center gap-x-2 bg-primary-color hover:bg-primary-color px-6 py-3 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-primary-color dark:hover:bg-primary-color focus:outline-none dark:focus:ring-primary-color"
@@ -43,7 +43,7 @@
                       <i class="fa-solid fa-download"></i>
                       Download
                     </a>
-                    <a href="{{ path('app_students_add') }}"
+                    <a href="{{ path('app_exam_add') }}"
                     class="text-white flex items-center gap-x-2 bg-primary-color hover:bg-primary-color px-4 py-2 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-primary-color dark:hover:bg-primary-color focus:outline-none dark:focus:ring-primary-color"
                     >
                       <i class="fa-solid fa-plus text-lg"></i>
@@ -55,70 +55,48 @@
                     <tr
                       class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                     >
-                        <th class="px-4 py-3">Admission No</th>
                         <th class="px-4 py-3">Name</th>
                         <th class="px-4 py-3">Class</th>
-                        <th class="px-4 py-3">Date Of Birth</th>
-                        <th class="px-4 py-3">Gender</th>
-                        <th class="px-4 py-3">Mobile Number</th>
-                        <th class="px-4 py-3">Adresse</th>
+                        <th class="px-4 py-3">Subject</th>
+                        <th class="px-4 py-3">Day</th>
+                        <th class="px-4 py-3">Time</th>
+                        <th class="px-4 py-3">Status</th>
                         <th class="px-4 py-3">Action</th>
                     </tr>
                   </thead>
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
-                    {% for student in pagination %}
+                    {% for exam in pagination %}
                     <tr class="text-gray-700 dark:text-gray-400">
                       <td class="px-4 py-3 text-sm">
-                        {{student.admission}}
-                      </td>
-                      <td class="px-4 py-3">
-                        <div class="flex items-center text-sm">
-                          <!-- Avatar with inset shadow -->
-                          <div
-                            class="relative w-8 h-8 mr-3 rounded-full md:block"
-                          >
-                            <img
-                              class="object-cover w-full h-full rounded-full"
-                              src="{{ asset(student.image.path) }}"
-                              alt=""
-                              loading="lazy"
-                            />
-                            <div
-                              class="absolute inset-0 rounded-full shadow-inner"
-                              aria-hidden="true"
-                            ></div>
-                          </div>
-                          <div>
-                            <p class="font-semibold">{{student.FirstName}} {{student.LastName}}</p>
-                          </div>
-                        </div>
+                        {{exam.name}}
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        {{student.class}}
+                        {{exam.class}}
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        8 Dec 2003
+                        {{exam.subject}}
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        {{student.Gender}}
+                        {{exam.day.format('d/m/Y')}}
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        {{student.Phone | format('%02d')}}
+                        {{exam.start.format('H:i')}} - {{exam.end.format('H:i')}}
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        {{student.Adress}}
+                        {% if exam.status %}
+                        <span class="px-2 py-1 rounded-xl bg-green-100 text-green-400 font-semibold text-[12px]">Active</span>
+                        {% else %}
+                        <span class="px-2 py-1 rounded-xl bg-red-100 text-red-400 font-semibold text-[12px]">InActive</span>
+                        {% endif %}
                       </td>
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-1 text-sm">
-                            <a href="{{ path('app_students_details',{'id':student.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-accent-color">
-                                <i class="fa-solid fa-eye text-xs text-white"></i>
-                            </a>
-                            <a href="{{ path('app_students_update',{'id':student.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-primary-color">
+                            <a href="{{ path('app_exam_update',{'id':exam.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-primary-color">
                                 <i class="fa-solid fa-pencil text-xs text-white"></i>
                             </a>
-                            <a href="{{ path('app_students_delete',{'id':student.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-light-red-color">
+                            <a href="{{ path('app_exam_delete',{'id':exam.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-light-red-color">
                                 <i class="fa-solid fa-trash text-xs text-white"></i>
                             </a>
                         </div>

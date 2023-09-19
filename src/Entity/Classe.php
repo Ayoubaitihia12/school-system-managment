@@ -32,14 +32,18 @@ class Classe
     #[ORM\OneToMany(mappedBy: 'class', targetEntity: Teacher::class)]
     private Collection $teachers;
 
-    #[ORM\OneToMany(mappedBy: 'class', targetEntity: ClassStudent::class)]
-    private Collection $classStudents;
+    #[ORM\OneToMany(mappedBy: 'class', targetEntity: Student::class)]
+    private Collection $students;
+
+    #[ORM\OneToMany(mappedBy: 'class', targetEntity: Exam::class)]
+    private Collection $exams;
 
     public function __construct()
     {
         $this->subjects = new ArrayCollection();
         $this->teachers = new ArrayCollection();
-        $this->classStudents = new ArrayCollection();
+        $this->students = new ArrayCollection();
+        $this->exams = new ArrayCollection();
     }
 
 
@@ -137,29 +141,59 @@ class Classe
     }
 
     /**
-     * @return Collection<int, ClassStudent>
+     * @return Collection<int, Student>
      */
-    public function getClassStudents(): Collection
+    public function getStudents(): Collection
     {
-        return $this->classStudents;
+        return $this->students;
     }
 
-    public function addClassStudent(ClassStudent $classStudent): static
+    public function addStudent(Student $student): static
     {
-        if (!$this->classStudents->contains($classStudent)) {
-            $this->classStudents->add($classStudent);
-            $classStudent->setClass($this);
+        if (!$this->students->contains($student)) {
+            $this->students->add($student);
+            $student->setClass($this);
         }
 
         return $this;
     }
 
-    public function removeClassStudent(ClassStudent $classStudent): static
+    public function removeStudent(Student $student): static
     {
-        if ($this->classStudents->removeElement($classStudent)) {
+        if ($this->students->removeElement($student)) {
             // set the owning side to null (unless already changed)
-            if ($classStudent->getClass() === $this) {
-                $classStudent->setClass(null);
+            if ($student->getClass() === $this) {
+                $student->setClass(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Exam>
+     */
+    public function getExams(): Collection
+    {
+        return $this->exams;
+    }
+
+    public function addExam(Exam $exam): static
+    {
+        if (!$this->exams->contains($exam)) {
+            $this->exams->add($exam);
+            $exam->setClass($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExam(Exam $exam): static
+    {
+        if ($this->exams->removeElement($exam)) {
+            // set the owning side to null (unless already changed)
+            if ($exam->getClass() === $this) {
+                $exam->setClass(null);
             }
         }
 

@@ -8,11 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\ClassType;
 use App\Entity\Classe;
-use App\Entity\Student;
 use App\Repository\ClasseRepository;
 use Knp\Component\Pager\PaginatorInterface;
-use App\Entity\ClassStudent;
-use App\Form\ClassStudentType;
 
 class ClasseController extends AbstractController
 {
@@ -85,7 +82,7 @@ class ClasseController extends AbstractController
     public function students(EntityManagerInterface $em , Request $request , Classe $classe , PaginatorInterface $paginator)
     {
         
-        $sql = "SELECT s FROM App\Entity\ClassStudent s WHERE s.class =" . $classe->getId();
+        $sql = "SELECT s FROM App\Entity\Student s WHERE s.class =" . $classe->getId();
         $query = $em->createQuery($sql);
 
         $pagination = $paginator->paginate(
@@ -94,27 +91,9 @@ class ClasseController extends AbstractController
             10 /*limit per page*/
         );  
 
-        // dd($pagination);
-
-        $classStudent = new ClassStudent();
-
-        $form = $this->createForm(ClassStudentType::class,$classStudent);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-
-            $classStudent->setClass($classe);
-
-            $em->persist($classStudent);
-            $em->flush();
-
-        }
-
         return $this->render('classe/students.html.twig',[
             'classe' => $classe,
             'pagination' => $pagination,
-            'form' => $form->createView()
         ]);
     }
 }

@@ -61,7 +61,7 @@ app_students_delete:
     controller: App\Controller\StudentController::delete
 
 app_students_details:
-    path: /students/details
+    path: /students/details/{id}
     controller: App\Controller\StudentController::view
 
 # Teacher
@@ -136,3 +136,21 @@ app_parent_update:
 app_parent_delete:
     path: /parent/delete/{id}
     controller: App\Controller\ParentController::delete
+
+# exam
+
+app_exam_index:
+    path: /exam
+    controller: App\Controller\ExamController::index
+
+app_exam_add:
+    path: /exam/add
+    controller: App\Controller\ExamController::add
+
+app_exam_update:
+    path: /exam/update/{id}
+    controller: App\Controller\ExamController::update
+
+app_exam_delete:
+    path: /exam/delete/{id}
+    controller: App\Controller\ExamController::delete

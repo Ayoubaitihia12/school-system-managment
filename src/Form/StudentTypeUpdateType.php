@@ -33,6 +33,7 @@ class StudentTypeUpdateType extends AbstractType
             ->add('date_of_birth',DateType::class,[
                 'widget' => 'single_text',
             ])
+            ->add('class')
             ->add('Adress',TextareaType::class)
             ->add('Phone',TelType::class)
             ->add('Nationality',CountryType::class)

@@ -6,25 +6,32 @@
 
 {% block content %}
 
-<div class="w-full bg-white border shadow-md flex items-start justify-between p-6 rounded-lg">
+<div class="w-full bg-white border shadow-md flex md:flex-row flex-col md:gap-x-4 gap-6 md:items-start items-center justify-between p-6 rounded-lg">
 
-    <div class="bg-primary-color rounded-full h-[200px] w-[200px]"></div>
+    <div class="bg-primary-color overflow-hidden rounded-full h-[200px] w-[200px]">
+        <img class="w-full h-full object-cover" src="{{ asset(student.image.path) }}" alt="{{student.LastName}}" />
+    </div>
 
     <div>
-        <h1 class="text-3xl font-bold mb-8">Jessia Rose</h1>
+        <h1 class="text-3xl md:text-start text-center font-bold mb-8">{{student.FirstName}} {{student.LastName}}</h1>
 
-        <ul class="flex flex-col gap-y-4">
-            {% for i in 0..4 %}
-            <li>Name: <span class="font-semibold">Jessia Rose</span></li>
+        <ul class="flex flex-col md:items-start items-center gap-y-4">
+            <li>Admission ID: <span class="font-semibold">{{student.admission}}</span></li>
+            <li>Gender: <span class="font-semibold">{{student.Gender}}</span></li>
             <li>Date Of Birth: <span class="font-semibold">07.08.2016</span></li>
-            {% endfor %}
+            <li>Nationality: <span class="font-semibold">{{student.Nationality}}</span></li>
+            <li>E-mail: <span class="font-semibold">{{student.Email}}</span></li>
+            <li>Admission Date: <span class="font-semibold">{{student.Email}}</span></li>
+            <li>Class: <span class="font-semibold">{{student.class}}</span></li>
+            <li>Adress: <span class="font-semibold">{{student.Adress}}</span></li>
+            <li>Phone: <span class="font-semibold">{{student.Phone}}</span></li>
         </ul>
     </div>
 
     <div class="flex items-center justify-between space-x-2">
-        <a href="#" class="w-[40px] h-[40px] flex items-center justify-center rounded-md bg-light-gray-color">
+        {# <a href="#" class="w-[40px] h-[40px] flex items-center justify-center rounded-md bg-light-gray-color">
             <i class="fa-solid fa-pencil text-dark-gray-color"></i>
-        </a>
+        </a> #}
         <a href="#" class="w-[40px] h-[40px] flex items-center justify-center rounded-md bg-light-gray-color">
             {# <i class="fa-solid fa-pencil text-dark-gray-color"></i> #}
             <i class="fa-solid fa-print text-dark-gray-color"></i>

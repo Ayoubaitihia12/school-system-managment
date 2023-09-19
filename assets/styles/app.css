@@ -9,3 +9,32 @@
 .backdrop-active{
     display: flex;
 }
+
+/* checkbox input */
+
+.switch input {display:none}
+
+.slider:before
+{
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 2px;
+    top: 50%;
+    transform: translateY(-50%) translateX(0);
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50px;
+}
+
+input:checked + .slider
+{
+    background: var(--primary-color);
+}
+
+input:checked + .slider:before
+{
+    top: 50%;
+    transform: translateY(-50%) translateX(23px);
+}

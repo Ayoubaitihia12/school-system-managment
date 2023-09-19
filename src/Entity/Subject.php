@@ -28,9 +28,13 @@ class Subject
     #[ORM\OneToMany(mappedBy: 'Subject', targetEntity: Teacher::class)]
     private Collection $teachers;
 
+    #[ORM\OneToMany(mappedBy: 'subject', targetEntity: Exam::class)]
+    private Collection $exams;
+
     public function __construct()
     {
         $this->teachers = new ArrayCollection();
+        $this->exams = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -106,6 +110,36 @@ class Subject
 
     public function __toString(){
         return $this->Name;
+    }
+
+    /**
+     * @return Collection<int, Exam>
+     */
+    public function getExams(): Collection
+    {
+        return $this->exams;
+    }
+
+    public function addExam(Exam $exam): static
+    {
+        if (!$this->exams->contains($exam)) {
+            $this->exams->add($exam);
+            $exam->setSubject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExam(Exam $exam): static
+    {
+        if ($this->exams->removeElement($exam)) {
+            // set the owning side to null (unless already changed)
+            if ($exam->getSubject() === $this) {
+                $exam->setSubject(null);
+            }
+        }
+
+        return $this;
     }
 
 }

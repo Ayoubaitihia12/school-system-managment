@@ -6,19 +6,6 @@
 
 {% block content %}
 
-<div class="w-full grid grid-cols-3 items-end gap-x-8 overflow-hidden p-4 bg-white mb-6 rounded-lg border-[1.5px] shadow-xs">
-  <div class="col-span-2">
-    <div class="mt-4">
-      {{ form_label(form.student,'Student',{'label_attr':{'class' : 'block mb-1.5 text-sm font-medium text-gray-900 dark:text-white'}}) }}
-      {{ form_widget(form.student,{'attr':{'class':'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'}}) }}
-      {{ form_errors(form.student) }}
-    </div>
-  </div>
-    <button type="submit" class="text-white items-center text-center bg-primary-color hover:bg-primary-color px-6 py-3 font-medium rounded-lg text-sm"
-    >
-    Add New Student
-    </button>
-</div>
 
 <div class="max-w-full overflow-hidden rounded-lg border-[1.5px] shadow-xs">
               <div class="max-w-full overflow-x-auto">
@@ -88,7 +75,7 @@
                       </td>
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-1 text-sm">
-                            <a href="#" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-accent-color">
+                            <a href="{{ path('app_students_details',{'id':student.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-accent-color">
                                 <i class="fa-solid fa-eye text-xs text-white"></i>
                             </a>
                             <a href="{{ path('app_students_update',{'id':student.id}) }}" class="w-[25px] h-[25px] flex items-center justify-center rounded-lg bg-primary-color">

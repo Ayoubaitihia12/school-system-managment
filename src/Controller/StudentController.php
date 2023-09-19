@@ -162,8 +162,10 @@ class StudentController extends AbstractController
         return $this->redirectToRoute('app_students_index');
     }
 
-    public function view(): Response
+    public function view(Student $student): Response
     {
-        return $this->render('student/view.html.twig');
+        return $this->render('student/view.html.twig',[
+            'student' => $student
+        ]);
     }
 }

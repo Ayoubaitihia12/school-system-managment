@@ -37,6 +37,7 @@ class StudentType extends AbstractType
             ])
             ->add('Adress',TextareaType::class)
             ->add('Phone',TelType::class)
+            ->add('class')
             ->add('Nationality',CountryType::class)
             ->add('Password',RepeatedType::class,[
                 'type' => PasswordType::class,

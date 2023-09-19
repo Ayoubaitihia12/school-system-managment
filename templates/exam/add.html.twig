@@ -1,0 +1,57 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Exams{% endblock %}
+
+{% block path %}Add exam{% endblock %}
+
+{% block content %}
+{{ form_start(form) }}
+<div class="bg-white rounded-xl w-full p-6 border shadow-sm">
+    <h1 class="text-lg font-semibold">Exam Information</h1>
+    
+    <div class="grid grid-cols-3 gap-6 py-4">
+        <div>
+            {{ form_label(form.name,'Name',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            {{ form_widget(form.name,{'attr':{'class':'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light','placeholder':'Enter First Name'}}) }}
+            {{ form_errors(form.name) }}
+        </div>
+        <div>
+            {{ form_label(form.class,'Class',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            {{ form_widget(form.class,{'attr':{'class':'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+            {{ form_errors(form.class) }}        
+        </div>
+         <div>
+            {{ form_label(form.subject,'Subject',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            {{ form_widget(form.subject,{'attr':{'class':'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+            {{ form_errors(form.subject) }}        
+        </div>
+        <div>
+            {{ form_label(form.day,'Day',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            {{ form_widget(form.day,{'attr':{'class':'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'}}) }}
+            {{ form_errors(form.day) }}
+        </div>
+        <div class="grid grid-cols-2 items-center gap-x-6">
+            <div>
+                {{ form_label(form.start,'From',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                {{ form_widget(form.start,{'attr':{'class':'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'}}) }}
+                {{ form_errors(form.start) }}
+            </div>
+            <div>
+                {{ form_label(form.end,'To',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+                {{ form_widget(form.end,{'attr':{'class':'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'}}) }}
+                {{ form_errors(form.end) }}
+            </div>
+        </div>
+        <div>
+            {{ form_label(form.status,'Status',{'label_attr':{'class':'block mb-1 text-sm font-medium text-gray-900 dark:text-white'}}) }}
+            {{ form_widget(form.status,{'attr':{'class':'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'}}) }}
+            {{ form_errors(form.status) }}
+        </div>
+    </div>
+
+
+    <button type="submit" class="text-white mt-6 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add New exam</button>
+    <a href="{{ path('app_exam_index') }}" class="mt-6 bg-black text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 mr-2 mb-2">Back</a>
+</div>
+{{ form_end(form) }}
+{% endblock %}

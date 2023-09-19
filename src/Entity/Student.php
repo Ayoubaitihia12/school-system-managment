@@ -78,13 +78,9 @@ class Student implements PasswordAuthenticatedUserInterface
     #[Assert\Length(exactly: 6)]
     private ?string $admission = null;
 
-    #[ORM\OneToMany(mappedBy: 'student', targetEntity: ClassStudent::class)]
-    private Collection $classStudents;
-
-    public function __construct()
-    {
-        $this->classStudents = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'students')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Classe $class = null;
 
     public function getId(): ?int
     {
@@ -271,32 +267,14 @@ class Student implements PasswordAuthenticatedUserInterface
         return $this->getAdmission().' - '.$this->FirstName . ' ' . $this->LastName;
     }
 
-    /**
-     * @return Collection<int, ClassStudent>
-     */
-    public function getClassStudents(): Collection
+    public function getClass(): ?Classe
     {
-        return $this->classStudents;
+        return $this->class;
     }
 
-    public function addClassStudent(ClassStudent $classStudent): static
+    public function setClass(?Classe $class): static
     {
-        if (!$this->classStudents->contains($classStudent)) {
-            $this->classStudents->add($classStudent);
-            $classStudent->setStudent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeClassStudent(ClassStudent $classStudent): static
-    {
-        if ($this->classStudents->removeElement($classStudent)) {
-            // set the owning side to null (unless already changed)
-            if ($classStudent->getStudent() === $this) {
-                $classStudent->setStudent(null);
-            }
-        }
+        $this->class = $class;
 
         return $this;
     }
