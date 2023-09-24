@@ -10,12 +10,29 @@
     
     {{ 'hello'|trans }}
 
-    <ul class="flex items-center gap-x-2">
-        <li><a href="{{ path(app.request.attributes.get('_route') , app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}">English</a></li>
-        <li><a href="{{ path(app.request.attributes.get('_route') , app.request.attributes.get('_route_params')|merge({'_locale': 'es'})) }}">Français</a></li>  
-    </ul>
+    <button type="button" class="btn btn-primary">English</button>
+    <button type="button" class="btn btn-primary">French</button>
 
 </div>
+
+
+<script>
+    $(document).ready(function() {
+        $('.btn-primary').click(function() {
+            var language = $(this).data('language');
+            $.ajax({
+                url: '{{ path('my_page') }}',
+                type: 'POST',
+                data: {
+                    language: language
+                },
+                success: function(data) {
+                    location.reload();
+                }
+            });
+        });
+    });
+</script>
 
 
 {% endblock %}

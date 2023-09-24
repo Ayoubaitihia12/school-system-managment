@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Subject;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Model\StudentSearch;
 
 /**
  * @extends ServiceEntityRepository<Subject>
@@ -20,6 +21,8 @@ class SubjectRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Subject::class);
     }
+
+    
 
 //    /**
 //     * @return Subject[] Returns an array of Subject objects

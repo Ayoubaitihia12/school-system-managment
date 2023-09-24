@@ -12,13 +12,30 @@ use App\Form\StudentType;
 use App\Entity\Student;
 use App\Form\StudentTypeUpdateType;
 use App\Entity\Media;
+use App\Model\StudentSearch;
+use App\Form\StudentSearchType;
 
 class StudentController extends AbstractController
 {
     public function index(EntityManagerInterface $em, PaginatorInterface $paginator, Request $request): Response
     {
-        $dql   = "SELECT s FROM App\Entity\Student s";
-        $query = $em->createQuery($dql);
+        $studentSearch = new StudentSearch();
+        $form = $this->createForm(StudentSearchType::class,$studentSearch);
+        $form->handleRequest($request);
+
+        $queryBuilder = $em->getRepository(Student::class)->createQueryBuilder('s');
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            // dd($studentSearch);
+
+            if(!empty($studentSearch->admission)){
+                $queryBuilder->Where('s.admission LIKE :admission')->setParameter('admission', '%'.$studentSearch->admission.'%');
+            }
+
+        }
+
+        $query = $queryBuilder->getQuery();
 
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
@@ -27,7 +44,8 @@ class StudentController extends AbstractController
         );
 
         return $this->render('student/index.html.twig',[
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'form' => $form->createView()
         ]);
     }
 

@@ -6,29 +6,31 @@
 
 {% block content %}
 
-<div class="flex items-center justify-between space-x-5 mb-6">
+<div class="grid grid-cols-4 items-center justify-between space-x-5 mb-6">
+  {{ form_start(form) }}
+    {# <input
+        class="block rounded-lg border-[1.5px] py-3 rounded- px-3 w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-primary-color focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+        placeholder="Search By ID..."
+    /> #}
+    {{form_widget(form.admission,{'attr':{'class':'block rounded-lg border-[1.5px] py-3 rounded- px-3 w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-primary-color focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input'}})}}
 
-<input
-    class="block rounded-lg border-[1.5px] py-3 rounded- px-3 w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-primary-color focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-    placeholder="Search By ID..."
-/>
+    <input
+        class="block rounded-lg border-[1.5px] py-3 px-3 w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-primary-color focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+        placeholder="Search By Name..."
+    />
 
-<input
-    class="block rounded-lg border-[1.5px] py-3 px-3 w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-primary-color focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-    placeholder="Search By Name..."
-/>
+    <input
+        class="block rounded-lg border-[1.5px] py-3 px-3 w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-primary-color focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+        placeholder="Search By Phone..."
+    />
 
-<input
-    class="block rounded-lg border-[1.5px] py-3 px-3 w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-primary-color focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-    placeholder="Search By Phone..."
-/>
-
-<button
-    class="text-white bg-primary-color hover:bg-primary-color px-10 py-3 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-primary-color dark:hover:bg-primary-color focus:outline-none dark:focus:ring-primary-color"
->
-    Search
-</button>
-
+    <button
+        type="submit"
+        class="text-white bg-primary-color hover:bg-primary-color px-10 py-3 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm dark:bg-primary-color dark:hover:bg-primary-color focus:outline-none dark:focus:ring-primary-color"
+    >
+        Search
+    </button>
+  {{ form_end(form) }}
 </div>
 
 

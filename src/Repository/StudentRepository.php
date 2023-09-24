@@ -3,8 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Student;
+use App\Model\StudentSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\BrowserKit\Request;
 
 /**
  * @extends ServiceEntityRepository<Student>
