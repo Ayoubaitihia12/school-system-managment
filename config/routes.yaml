@@ -2,8 +2,10 @@
 # Test
 
 app_test:
-    path: /test
+    path: /{_locale}/test
     controller : App\Controller\TestController::index
+    requirements:
+      _locale: en|fr
 
 
 # Reset Password:
@@ -154,3 +156,54 @@ app_exam_update:
 app_exam_delete:
     path: /exam/delete/{id}
     controller: App\Controller\ExamController::delete
+
+# Class Routine
+
+app_classRoutine_index:
+    path: /class-routine
+    controller: App\Controller\ClassRoutineController::index
+
+app_classRoutine_add:
+    path: /class-routine/add
+    controller: App\Controller\ClassRoutineController::add
+
+app_classRoutine_update:
+    path: /class-routine/update/{id}
+    controller: App\Controller\ClassRoutineController::update
+
+app_classRoutine_delete:
+    path: /class-routine/delete/{id}
+    controller: App\Controller\ClassRoutineController::delete
+
+# Holiday
+
+app_holiday_index:
+    path: /holiday
+    controller: App\Controller\HolidayController::index
+
+app_holiday_add:
+    path: /holiday/add
+    controller: App\Controller\HolidayController::add
+
+app_holiday_update:
+    path: /holiday/update/{id}
+    controller: App\Controller\HolidayController::add
+
+app_holiday_delete:
+    path: /holiday/delete/{id}
+    controller: App\Controller\HolidayController::delete
+
+# Event
+
+api_event_list:
+    path: /api/events
+    controller: App\Controller\EventController::listEvents
+    methods:    GET
+    
+app_event_index:
+    path: /event
+    controller: App\Controller\EventController::index
+
+app_event_add:
+    path: /event/add
+    controller: App\Controller\EventController::add

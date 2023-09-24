@@ -42,9 +42,13 @@ class Parents
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: Student::class)]
+    private Collection $students;
+
     public function __construct()
     {
         $this->student = new ArrayCollection();
+        $this->students = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -180,5 +184,13 @@ class Parents
 
     public function __toString(){
         return $this->firstName . '' . $this->lastName;
+    }
+
+    /**
+     * @return Collection<int, Student>
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
     }
 }

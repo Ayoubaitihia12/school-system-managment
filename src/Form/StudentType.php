@@ -47,6 +47,7 @@ class StudentType extends AbstractType
                     ]),
                 ]
             ])
+            ->add('parent')
             ->add("file",FileType::class,array("label"=>"User image","required"=>false));
         ;
     }

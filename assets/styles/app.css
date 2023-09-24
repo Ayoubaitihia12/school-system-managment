@@ -38,3 +38,8 @@ input:checked + .slider:before
     top: 50%;
     transform: translateY(-50%) translateX(23px);
 }
+
+#calendar{
+    width:80%;
+    margin: auto;
+}

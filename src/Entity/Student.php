@@ -82,6 +82,10 @@ class Student implements PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Classe $class = null;
 
+    #[ORM\ManyToOne(inversedBy: 'students')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Parents $parent = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -275,6 +279,18 @@ class Student implements PasswordAuthenticatedUserInterface
     public function setClass(?Classe $class): static
     {
         $this->class = $class;
+
+        return $this;
+    }
+
+    public function getParent(): ?Parents
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?Parents $parent): static
+    {
+        $this->parent = $parent;
 
         return $this;
     }

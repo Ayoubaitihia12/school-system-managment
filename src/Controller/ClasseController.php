@@ -44,6 +44,8 @@ class ClasseController extends AbstractController
             $em->persist($classe);
             $em->flush();
 
+            $this->addFlash('success','Class added successfully');
+
             return $this->redirectToRoute('app_classe_index');
         }
 
@@ -63,6 +65,8 @@ class ClasseController extends AbstractController
             $em->persist($classe);
             $em->flush();
 
+            $this->addFlash('success','Class updated successfully.');
+
             return $this->redirectToRoute('app_classe_index');
         }
 
@@ -75,6 +79,8 @@ class ClasseController extends AbstractController
 
         $entityManager->remove($classe);
         $entityManager->flush();
+
+        $this->addFlash('success','Class deleted successfully');
 
         return $this->redirectToRoute('app_classe_index');
     }

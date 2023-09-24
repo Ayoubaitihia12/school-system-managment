@@ -31,10 +31,14 @@ class Subject
     #[ORM\OneToMany(mappedBy: 'subject', targetEntity: Exam::class)]
     private Collection $exams;
 
+    #[ORM\OneToMany(mappedBy: 'subject', targetEntity: ClassRoutine::class)]
+    private Collection $classRoutines;
+
     public function __construct()
     {
         $this->teachers = new ArrayCollection();
         $this->exams = new ArrayCollection();
+        $this->classRoutines = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,6 +140,36 @@ class Subject
             // set the owning side to null (unless already changed)
             if ($exam->getSubject() === $this) {
                 $exam->setSubject(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ClassRoutine>
+     */
+    public function getClassRoutines(): Collection
+    {
+        return $this->classRoutines;
+    }
+
+    public function addClassRoutine(ClassRoutine $classRoutine): static
+    {
+        if (!$this->classRoutines->contains($classRoutine)) {
+            $this->classRoutines->add($classRoutine);
+            $classRoutine->setSubject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClassRoutine(ClassRoutine $classRoutine): static
+    {
+        if ($this->classRoutines->removeElement($classRoutine)) {
+            // set the owning side to null (unless already changed)
+            if ($classRoutine->getSubject() === $this) {
+                $classRoutine->setSubject(null);
             }
         }
 
