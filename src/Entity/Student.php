@@ -7,19 +7,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: StudentRepository::class)]
+#[UniqueEntity(fields: ['email'])]
 
-/** 
-* @ORM\Entity() 
-* @UniqueEntity(fields={"email"})
-* @UniqueEntity(fields={"Admission_id"})
-*/
 
-class Student implements PasswordAuthenticatedUserInterface
+class Student implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -33,7 +30,10 @@ class Student implements PasswordAuthenticatedUserInterface
     private ?string $LastName = null;
 
     #[ORM\Column(length: 255,unique:true)]
-    private ?string $Email = null;
+    private ?string $email = null;
+
+    #[ORM\Column]
+    private array $roles = [];
 
 
     #[ORM\Column(length: 255)]
@@ -91,6 +91,24 @@ class Student implements PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
+     /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        $roles[] = 'ROLE_STUDENT';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
     public function getFirstName(): ?string
     {
         return $this->FirstName;
@@ -117,12 +135,12 @@ class Student implements PasswordAuthenticatedUserInterface
 
     public function getEmail(): ?string
     {
-        return $this->Email;
+        return $this->email;
     }
 
-    public function setEmail(string $Email): static
+    public function setEmail(string $email): static
     {
-        $this->Email = $Email;
+        $this->email = $email;
 
         return $this;
     }
@@ -293,5 +311,24 @@ class Student implements PasswordAuthenticatedUserInterface
         $this->parent = $parent;
 
         return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+     /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }

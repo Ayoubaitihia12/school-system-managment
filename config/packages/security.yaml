@@ -9,18 +9,29 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+        app_student_provider:
+            entity:
+                class: App\Entity\Student
+                property: email
+        app_parent_provider:
+            entity:
+                class: App\Entity\Parents
+                property: email
+        chain_provider:
+            chain: 
+                providers: [app_user_provider, app_student_provider,app_parent_provider]
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: app_user_provider
+            provider: chain_provider
             custom_authenticator: App\Security\LoginAuthenticator
             logout:
                 path: app_logout
                 # where to redirect after logout
-                # target: app_any_route
+                target: app_login
 
             remember_me:
                 secret: '%kernel.secret%'
@@ -40,9 +51,10 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
+    
     access_control:
         - { path: ^/login, roles: PUBLIC_ACCESS }
-        - { path: ^/, roles: ROLE_ADMIN }
+        - { path: ^/, roles: [ROLE_ADMIN,ROLE_STUDENT,ROLE_PARENT] }
 
 when@test:
     security:

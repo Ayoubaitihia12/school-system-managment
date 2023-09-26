@@ -10,13 +10,38 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Parents;
 use App\Form\ParentUpdateType;
 use App\Form\ParentType;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Model\ParentSearch;
+use App\Form\ParentSearchType;
 
 class ParentController extends AbstractController
 {
     public function index(EntityManagerInterface $em, PaginatorInterface $paginator, Request $request): Response
     {
-        $dql   = "SELECT p FROM App\Entity\Parents p";
-        $query = $em->createQuery($dql);
+        $parentSearch = new ParentSearch();
+
+        $form = $this->createForm(ParentSearchType::class,$parentSearch);
+        $form->handleRequest($request);
+
+        $queryBuilder = $em->getRepository(Parents::class)->createQueryBuilder('t');
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            if(!empty($parentSearch->name)){
+                $queryBuilder->Where('t.firstName LIKE :name')
+                ->setParameter('name', '%'.$parentSearch->name.'%');
+            }
+
+            if(!empty($parentSearch->student)){
+                $queryBuilder->innerJoin('t.students','s')
+                ->andwhere('t.firstName = :name')
+                ->andWhere('s.FirstName LIKE :student')
+                ->setParameter('name',$parentSearch->name)
+                ->setParameter('student',$parentSearch->student);
+            }
+        }
+
+        $query = $queryBuilder->getQuery();
 
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
@@ -25,12 +50,13 @@ class ParentController extends AbstractController
         );
 
         return $this->render('parent/index.html.twig',[
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'form' => $form->createView()
         ]);
 
     }
 
-    public function add(Request $request , EntityManagerInterface $em): Response
+    public function add(Request $request , EntityManagerInterface $em , UserPasswordHasherInterface $passwordHasher): Response
     {
         $parent = new Parents();
 
@@ -38,6 +64,17 @@ class ParentController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+
+            $password = $parent->getPassword();
+
+            $hashedPassword = $passwordHasher->hashPassword(
+                $parent,
+                $password
+            );
+
+            $parent->setPassword($hashedPassword);
+
+            $parent->setRoles(['ROLE_PARENT']);
 
             $em->persist($parent);
             $em->flush();

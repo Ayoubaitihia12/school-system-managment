@@ -20,6 +20,7 @@ class StudentController extends AbstractController
     public function index(EntityManagerInterface $em, PaginatorInterface $paginator, Request $request): Response
     {
         $studentSearch = new StudentSearch();
+
         $form = $this->createForm(StudentSearchType::class,$studentSearch);
         $form->handleRequest($request);
 
@@ -30,9 +31,19 @@ class StudentController extends AbstractController
             // dd($studentSearch);
 
             if(!empty($studentSearch->admission)){
-                $queryBuilder->Where('s.admission LIKE :admission')->setParameter('admission', '%'.$studentSearch->admission.'%');
+                $queryBuilder->Where('s.admission LIKE :admission')
+                ->setParameter('admission', '%'.$studentSearch->admission.'%');
             }
 
+            if(!empty($studentSearch->name)){
+                $queryBuilder->andWhere('s.FirstName LIKE :name')
+                ->setParameter('name','%'.$studentSearch->name.'%');
+            }
+
+            if(!empty($studentSearch->class)){
+                $queryBuilder->andWhere('s.class = :class')
+                ->setParameter('class',$studentSearch->class);
+            }
         }
 
         $query = $queryBuilder->getQuery();
@@ -40,7 +51,7 @@ class StudentController extends AbstractController
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
-            10 /*limit per page*/
+            2 /*limit per page*/
         );
 
         return $this->render('student/index.html.twig',[
@@ -112,6 +123,8 @@ class StudentController extends AbstractController
             $em->persist($student);
             $em->flush();
 
+            $this->addFlash('success','Student added successfully');
+
             return $this->redirectToRoute('app_students_index');
         }
 
@@ -155,6 +168,8 @@ class StudentController extends AbstractController
             $em->persist($student);
             $em->flush();
 
+            $this->addFlash('success','Student updated successfully.');
+
             return $this->redirectToRoute('app_students_index');
         }
 
@@ -176,6 +191,8 @@ class StudentController extends AbstractController
             $em->remove($media);
             $em->flush();
         }
+
+        $this->addFlash('success','Student deleted successfully');
 
         return $this->redirectToRoute('app_students_index');
     }

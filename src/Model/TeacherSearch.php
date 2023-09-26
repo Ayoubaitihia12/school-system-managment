@@ -4,7 +4,7 @@ namespace App\Model;
 
 use App\Entity\Classe;
 
-class StudentSearch{
+class TeacherSearch{
     
     /** @var int */ 
     public ?string $admission = '';

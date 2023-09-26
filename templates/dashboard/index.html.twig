@@ -5,77 +5,58 @@
 {% block path %}Dashboard{% endblock %}
 
 {% block content %}
-    <div class="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4">
+    <div class="grid md:grid-cols-3 grid-cols-2 gap-4">
         
-        <div class="flex items-center bg-white justify-between border p-4 rounded-md">
-            <div class="flex flex-col items-start">
-                <span class="text-gray-400 text-sm">Students</span>
-                <span class="text-2xl font-bold">{{nbrStudent}}</span>
+        <div class="flex items-center bg-white gap-4 border p-4 rounded-md">
+            <div class="bg-blue-500 py-4 px-6 rounded-md">
+                <i class="fa-solid fa-user-graduate text-3xl text-white"></i>
             </div>
-            <div class="bg-gray-100 py-4 px-6 rounded-md">
-                <i class="fa-solid fa-user-graduate text-3xl"></i>
+            <div class="flex flex-col items-start">
+                <span class="text-gray-400 text-md">Students</span>
+                <span class="text-2xl font-semibold">{{nbrStudent}}</span>
             </div>
         </div>
 
-        <div class="flex items-center bg-white justify-between border p-4 rounded-md">
-            <div class="flex flex-col items-start">
-                <span class="text-gray-400 text-sm">Teachers</span>
-                <span class="text-2xl font-bold">{{nbrTeacher}}</span>
+        <div class="flex items-center bg-white gap-4 border p-4 rounded-md">
+            <div class="bg-blue-500 py-4 px-6 rounded-md">
+                <i class="fa-solid fa-chalkboard-user text-3xl text-white"></i>
             </div>
-            <div class="bg-gray-100 py-4 px-6 rounded-md">
-                <i class="fa-solid fa-user-graduate text-3xl"></i>
+            <div class="flex flex-col items-start">
+                <span class="text-gray-400 text-md">Teachers</span>
+                <span class="text-2xl font-semibold">{{nbrTeacher}}</span>
             </div>
         </div>
 
-        <div class="flex items-center bg-white justify-between border p-4 rounded-md">
-            <div class="flex flex-col items-start">
-                <span class="text-gray-400 text-sm">Parents</span>
-                <span class="text-2xl font-bold">{{nbrParent}}</span>
+        <div class="flex items-center bg-white gap-4 border p-4 rounded-md">
+            <div class="bg-blue-500 py-4 px-6 rounded-md">
+                <i class="fa-solid fa-user-tie text-3xl text-white"></i>
             </div>
-            <div class="bg-gray-100 py-4 px-6 rounded-md">
-                <i class="fa-solid fa-user-graduate text-3xl"></i>
+            <div class="flex flex-col items-start">
+                <span class="text-gray-400 text-md">Parents</span>
+                <span class="text-2xl font-semibold">{{nbrParent}}</span>
             </div>
         </div>
 
-        <div class="flex items-center bg-white justify-between border p-4 rounded-md">
-            <div class="flex flex-col items-start">
-                <span class="text-gray-400 text-sm">Classes</span>
-                <span class="text-2xl font-bold">{{nbrClass}}</span>
+        <div class="flex items-center bg-white gap-4 border p-4 rounded-md">
+            <div class="bg-blue-500 py-4 px-6 rounded-md">
+                <i class="fa-solid fa-school text-3xl text-white"></i>
             </div>
-            <div class="bg-gray-100 py-4 px-6 rounded-md">
-                <i class="fa-solid fa-user-graduate text-3xl"></i>
+            <div class="flex flex-col items-start">
+                <span class="text-gray-400 text-md">Classes</span>
+                <span class="text-2xl font-semibold">{{nbrClass}}</span>
             </div>
         </div>
 
-        <div class="flex items-center bg-white justify-between border p-4 rounded-md">
-            <div class="flex flex-col items-start">
-                <span class="text-gray-400 text-sm">Subjects</span>
-                <span class="text-2xl font-bold">{{nbrSubject}}</span>
+        <div class="flex items-center bg-white gap-4 border p-4 rounded-md">
+            <div class="bg-blue-500 py-4 px-6 rounded-md">
+                <i class="fa-solid fa-book-open text-3xl text-white"></i>
             </div>
-            <div class="bg-gray-100 py-4 px-6 rounded-md">
-                <i class="fa-solid fa-user-graduate text-3xl"></i>
+            <div class="flex flex-col items-start">
+                <span class="text-gray-400 text-md">Subjects</span>
+                <span class="text-2xl font-semibold">{{nbrClass}}</span>
             </div>
         </div>
-
-        <div class="flex items-center bg-white justify-between border p-4 rounded-md">
-            <div class="flex flex-col items-start">
-                <span class="text-gray-400 text-sm">Today Exam</span>
-                <span class="text-2xl font-bold">40</span>
-            </div>
-            <div class="bg-gray-100 py-4 px-6 rounded-md">
-                <i class="fa-solid fa-user-graduate text-3xl"></i>
-            </div>
-        </div>
-
-        <div class="flex items-center bg-white justify-between border p-4 rounded-md">
-            <div class="flex flex-col items-start">
-                <span class="text-gray-400 text-sm">Today Event</span>
-                <span class="text-2xl font-bold">40</span>
-            </div>
-            <div class="bg-gray-100 py-4 px-6 rounded-md">
-                <i class="fa-solid fa-user-graduate text-3xl"></i>
-            </div>
-        </div>
+    
 
     </div>
 {% endblock %}

@@ -4,13 +4,13 @@ namespace App\Model;
 
 use App\Entity\Classe;
 
-class StudentSearch{
+class SubjectSearch{
     
-    /** @var int */ 
-    public ?string $admission = '';
-
     /** @var string */ 
     public ?string $name = '';
+
+    /** @var string */ 
+    public ?string $type = '';
 
     /** @var string */ 
     public ?Classe $class = null;

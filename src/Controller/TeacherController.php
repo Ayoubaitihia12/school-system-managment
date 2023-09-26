@@ -11,14 +11,40 @@ use App\Form\TeacherType;
 use App\Form\TeacherUpdateType;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Entity\Media;
+use App\Form\TeacherSearchType;
+use App\Model\TeacherSearch;
 
 class TeacherController extends AbstractController
 {
 
     public function index(EntityManagerInterface $em, PaginatorInterface $paginator, Request $request): Response
     {
-        $dql   = "SELECT t FROM App\Entity\Teacher t";
-        $query = $em->createQuery($dql);
+        $teacherSearch = new TeacherSearch();
+
+        $form = $this->createForm(TeacherSearchType::class,$teacherSearch);
+        $form->handleRequest($request);
+
+        $queryBuilder = $em->getRepository(Teacher::class)->createQueryBuilder('t');
+        
+        if($form->isSubmitted() && $form->isValid()){
+
+            if(!empty($teacherSearch->admission)){
+                $queryBuilder->Where('t.admissionId LIKE :admission')
+                ->setParameter('admission', '%'.$teacherSearch->admission.'%');
+            }
+
+            if(!empty($teacherSearch->name)){
+                $queryBuilder->andWhere('t.FirstName LIKE :name')
+                ->setParameter('name','%'.$teacherSearch->name.'%');
+            }
+
+            if(!empty($teacherSearch->class)){
+                $queryBuilder->andWhere('t.class = :class')
+                ->setParameter('class',$teacherSearch->class);
+            }
+        }
+
+        $query = $queryBuilder->getQuery();
 
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
@@ -27,7 +53,8 @@ class TeacherController extends AbstractController
         );
 
         return $this->render('teacher/index.html.twig',[
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'form' => $form->createView()
         ]);
 
     }
@@ -86,6 +113,8 @@ class TeacherController extends AbstractController
             $em->persist($teacher);
             $em->flush();
 
+            $this->addFlash('success','Teacher added successfully');
+
             return $this->redirectToRoute('app_teacher_index');
         }
 
@@ -132,6 +161,8 @@ class TeacherController extends AbstractController
             $em->persist($teacher);
             $em->flush();
 
+            $this->addFlash('success','Teacher updated successfully.');
+
             return $this->redirectToRoute('app_teacher_index');
         }
 
@@ -153,6 +184,8 @@ class TeacherController extends AbstractController
             $em->remove($media);
             $em->flush();
         }
+
+        $this->addFlash('success','Teacher deleted successfully');
 
         return $this->redirectToRoute('app_teacher_index');
     }

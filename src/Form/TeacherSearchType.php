@@ -2,15 +2,15 @@
 
 namespace App\Form;
 
-use App\Entity\Classe;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use App\Model\StudentSearch;
+use App\Model\TeacherSearch;
+use App\Entity\Classe;
 
-class StudentSearchType extends AbstractType
+class TeacherSearchType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -35,13 +35,13 @@ class StudentSearchType extends AbstractType
                 'required' => false,
                 'placeholder' => 'All Classes',
             ])
-        ;
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => StudentSearch::class,
+            'data_class' => TeacherSearch::class,
             'method' => 'GET',
             'csrf_protection' => false,
         ]);

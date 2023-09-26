@@ -1,0 +1,49 @@
+{% if pageCount > 1 %}
+<div class="w-full">
+    <ol class="flex justify-center gap-1 text-md font-medium ">
+        
+        {% if previous is defined %}
+            <li>
+                <a
+                rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}"
+                class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-color bg-white text-gray-900 rtl:rotate-180"
+                >
+                <span class="sr-only">Prev Page</span>
+                <i class="fa-solid fa-chevron-left text-sm"></i>
+                </a>
+            </li>
+        {% endif %}
+
+        {% for page in pagesInRange %}
+            {% if page != current %}
+                <li>
+                    <a
+                    href="{{ path(route, query|merge({(pageParameterName): page})) }}"
+                    class="items-center justify-center h-[30px] w-[30px] flex  text-sm rounded border border-gray-color bg-white text-center leading-8 text-gray-900"
+                    >
+                    {{ page }}
+                    </a>
+                </li>
+            {% else %}
+                <li
+                    class="items-center justify-center h-[30px] w-[30px] flex  text-sm rounded bg-primary-color text-center leading-8 text-white"
+                >     
+                    {{ page }}
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if last is defined and current != last %}
+            <li>
+                <a
+                href="{{ path(route, query|merge({(pageParameterName): last})) }}"
+                class="items-center justify-center h-[30px] w-[30px] flex  text-sm rounded border border-gray-color bg-white text-gray-900 rtl:rotate-180"
+                >
+                <span class="sr-only">Next Page</span>
+                <i class="fa-solid fa-chevron-right text-sm"></i>
+                </a>
+            </li>
+        {% endif %}
+    </ol>
+</div>
+{% endif %}

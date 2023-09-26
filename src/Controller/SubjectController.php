@@ -9,13 +9,40 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Subject;
 use App\Form\SubjectType;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Model\SubjectSearch;
+use App\Form\SubjectSearchType;
 
 class SubjectController extends AbstractController
 {
     public function index(Request $request , EntityManagerInterface $em , PaginatorInterface $paginator): Response
     {
-        $sql = "SELECT s FROM App\Entity\Subject s";
-        $query = $em->createQuery($sql);
+
+        $subjectSearch = new SubjectSearch();
+
+        $form = $this->createForm(SubjectSearchType::class,$subjectSearch);
+        $form->handleRequest($request);
+
+        $queryBuilder = $em->getRepository(Subject::class)->createQueryBuilder('s');
+
+        if($form->isSubmitted() && $form->isValid()){
+            
+            if(!empty($subjectSearch->name)){
+                $queryBuilder->Where('s.Name LIKE :name')
+                ->setParameter('name', '%'.$subjectSearch->name.'%');
+            }
+
+            if(!empty($subjectSearch->type)){
+                $queryBuilder->andWhere('s.Type = :type')
+                ->setParameter('type', $subjectSearch->type);
+            }
+
+            if(!empty($subjectSearch->class)){
+                $queryBuilder->andWhere('s.Class = :class')
+                ->setParameter('class', $subjectSearch->class);
+            }
+        }
+
+        $query = $queryBuilder->getQuery();     
 
         $pagination = $paginator->paginate(
             $query, /* query NOT result */
@@ -24,7 +51,8 @@ class SubjectController extends AbstractController
         );
 
         return $this->render('subject/index.html.twig',[
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'form' => $form->createView()
         ]);
     }
 
