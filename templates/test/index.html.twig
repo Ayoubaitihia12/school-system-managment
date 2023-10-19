@@ -9,30 +9,14 @@
 <div class="px-4 sm:px-6 lg:px-8">
     
     {{ 'hello'|trans }}
+    <br>
 
-    <button type="button" class="btn btn-primary">English</button>
-    <button type="button" class="btn btn-primary">French</button>
+    <a href="{{ path('app_change_locale',{'_locale':'fr'}) }}">France</a>
 
 </div>
 
 
-<script>
-    $(document).ready(function() {
-        $('.btn-primary').click(function() {
-            var language = $(this).data('language');
-            $.ajax({
-                url: '{{ path('my_page') }}',
-                type: 'POST',
-                data: {
-                    language: language
-                },
-                success: function(data) {
-                    location.reload();
-                }
-            });
-        });
-    });
-</script>
+
 
 
 {% endblock %}

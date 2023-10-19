@@ -2,8 +2,18 @@
 # Test
 
 app_test:
-    path: /test
+    path: /{_locale}/test/
     controller : App\Controller\TestController::index
+    defaults:
+        _locale: en
+    requirements:
+        _locale: en|fr
+
+app_change_locale:
+    path: /change-locale/{_locale}
+    controller : App\Controller\TestController::changeLocale
+    requirements:
+        _locale: en|fr
 
 # Reset Password:
 
